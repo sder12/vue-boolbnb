@@ -14,6 +14,7 @@ export default {
       apartments: [],
       errors: false,
       notFound: false,
+      filterModal: false,
     };
   },
   methods: {
@@ -41,7 +42,7 @@ export default {
         this.loading = false;
         this.errors = true;
       }
-    },
+    }
   },
   created() {
     this.getFilterApartments();
@@ -53,21 +54,50 @@ export default {
   <!-- Search -->
   <div class="container-fluid wrapper">
     <div class="container">
-      <section class="row justify-content-center">
-        <div class="col-6 text-center d-flex flex-wrap">
-          <input
-            class="form-control me-2 w-75"
-            :class="{ 'is-invalid': errors }"
-            type="input"
-            placeholder="Search"
-            aria-label="Search"
-            v-model="this.store.addressInput"
-          />
+      <section class="row justify-content-center flex-wrap">
+        <div class="col-7 text-center d-flex flex-wrap">
+          <input class="form-control me-2 w-75" :class="{ 'is-invalid': errors }" type="input" placeholder="Search"
+            aria-label="Search" v-model="this.store.addressInput" />
           <a class="btn btn-dark" @click="getFilterApartments">
             <i class="fa-solid fa-magnifying-glass"></i>
           </a>
           <div class="invalid-feedback text-start ps-2">
             <strong>Inserisci un indirizzo o una città</strong>
+          </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <div class="col-7 text-end mt-4">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            @click="() => { this.filterModal = true }">
+            Add more Filter
+          </button>
+        </div>
+
+      </section>
+
+      <!-- Modal -->
+      <section>
+        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+          :class="{ 'show fade d-block': filterModal }">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Filters
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                  @click="() => { this.filterModal = false }"></button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                  @click="() => { this.filterModal = false }">Reset</button>
+                <button type="button" class="btn btn-success">Apply</button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -88,12 +118,7 @@ export default {
       <h1 v-if="apartments.length == 0" class="text-center mt-5">
         Nessun appartamento trovato!
       </h1>
-      <CardApartment
-        v-else
-        v-for="apartment in apartments"
-        :key="apartment.id"
-        :apartment="apartment"
-      />
+      <CardApartment v-else v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
     </section>
   </div>
   <!--/  Apartments -->
