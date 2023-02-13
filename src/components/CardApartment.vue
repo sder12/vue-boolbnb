@@ -1,27 +1,28 @@
 <script>
-import { store } from '../store';
+import { store } from "../store";
 export default {
-    name: "CardApartment",
-    props: {
-        apartment: Object,
+  name: "CardApartment",
+  props: {
+    apartment: Object,
+  },
+  data() {
+    return {
+      store,
+    };
+  },
+  computed: {
+    descriptionPreview() {
+      if (
+        this.apartment.description &&
+        this.apartment.description.length > 100
+      ) {
+        return this.apartment.description.substr(0, 100) + " ...";
+      }
+      return this.apartment.description;
     },
-    data() {
-        return {
-            store
-        }
-    },
-    computed: {
-        descriptionPreview() {
-            if (this.apartment.description && this.apartment.description.length > 100) {
-                return this.apartment.description.substr(0, 100) + ' ...';
-            }
-            return this.apartment.description;
-        }
-    },
-}
-
+  },
+};
 </script>
-
 
 <template>
     <div class="col-3 my-3">
@@ -37,20 +38,19 @@ export default {
                 <p class="ms-card-text mt-1" v-else> ---- </p>
                 <!-- / Description -->
 
-                <!-- <div class="ms-card-price d-flex justify-content-end">
-                    <strong>$30 a notte</strong>
-                </div> -->
-                <!-- router-link :to="{name: 'single-apartment', params: {slug: apartment.slug}}"-->
-                <a href="#" class="btn btn-primary">
+                <router-link
+                    :to="{
+                        name: 'show',
+                        params: { slug: apartment.slug },
+                    }"
+                    class="btn btn-primary"
+                    >
                     <i class="fa-solid fa-eye"></i>
-                </a>
-                <!-- / router-link -->
+                </router-link>
             </div>
         </div>
     </div>
 </template>
-
-
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
 .ms-card {

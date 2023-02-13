@@ -9,8 +9,8 @@ export default {
   data() {
     return {
       store,
-      apartments: [],
       loading: false,
+      apartments: [],
     };
   },
   created() {
@@ -24,7 +24,8 @@ export default {
         .get(`${this.store.apiUrl}/api/apartments`)
         .then((resp) => {
           this.apartments = resp.data.apartments;
-          console.log(this.apartments);
+          this.store.services = resp.data.services;
+
           this.loading = false;
         })
         .catch((err) => {
