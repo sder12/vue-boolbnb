@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     getFilterApartments() {
+      this.filterModal = false;
       if (this.store.addressInput) {
         this.loading = true;
         this.errors = false;
