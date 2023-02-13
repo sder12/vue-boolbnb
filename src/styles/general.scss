@@ -5,7 +5,24 @@
 @import 'node_modules/@fontsource/poppins';
 
 
-
 body {
     font-family: "Poppins", sans-serif;
+}
+
+img {
+    max-width: 100%;
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+// COMMON
+.ms-btn {
+    color: white;
+    padding: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    font-size: .9rem;
 }

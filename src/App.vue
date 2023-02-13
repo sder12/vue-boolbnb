@@ -1,9 +1,10 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
+import AppFooter from "./components/AppFooter.vue";
 
 export default {
   name: "App",
-  components: { AppHeader },
+  components: { AppHeader, AppFooter },
 }
 
 </script>
@@ -18,6 +19,9 @@ export default {
   <router-view></router-view>
   <!-- /main -->
 
+  <!-- footer -->
+  <AppFooter />
+  <!-- /footer -->
 </template>
 
 
