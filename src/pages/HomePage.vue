@@ -45,39 +45,33 @@ export default {
 
 <template>
   <!-- Jumbotron -->
-    <section id="jumbotron" class="position-relative">
+  <section id="jumbotron" class="position-relative">
     <div class="container jumbotron-container">
       <div class="row">
         <!-- Left -->
-            <div class="col-4 text-center">
-              <h3 class="fw-bold">Not sure where to go?</h3>
-              <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium voluptatem earum, est sunt voluptate, repellendus!</p>
+        <div class="col-4 text-center">
+          <h3 class="fw-bold">Not sure where to go?</h3>
+          <p class="mt-3">Discover breathtaking destinations and book the perfect vacation rental for your next
+            adventure.
+            Simply enter your desired location to find available rentals.
+          </p>
+          <!-- Form Research -->
+          <div class="d-flex justify-content-center mt-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+              @keyup.enter="goToSearchPage" v-model="this.store.addressInput" />
+          </div>
+          <!-- /Form Research -->
+        </div>
 
-              <!-- Form Research -->
-              <div class="d-flex justify-content-center" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  v-model="this.store.addressInput"
-                />
-                <a class="btn btn-dark" @click="goToSearchPage">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </a>
-              </div>
-              <!-- /Form Research -->
-            </div>
-
-            <!-- Right -->
-            <div class="col-8 text-center">
-              <div class="img-container">
-                <img id="front-home" src="../assets/front-home-1.svg" alt="">
-              </div>
-            </div>
+        <!-- Right -->
+        <div class="col-8 text-center">
+          <div class="img-container">
+            <img id="front-home" src="../assets/front-home-1.svg" alt="">
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
   <!-- / Jumbotron -->
 
   <!-- Apartments -->
@@ -85,11 +79,7 @@ export default {
     <Loading v-if="loading" />
     <section id="apartments" class="row" v-else>
       <h1>Most Viewed</h1>
-      <CardApartment
-        v-for="apartment in apartments"
-        :key="apartment.id"
-        :apartment="apartment"
-      />
+      <CardApartment v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
     </section>
   </div>
   <!--/  Apartments -->
@@ -122,11 +112,18 @@ export default {
 
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
+
 // Jumbotron
 #jumbotron {
   background-color: var(--bgGrey);
   width: 100%;
   height: 500px;
+
+  .col-4 {
+    display: flex;
+    flex-direction: column;
+
+  }
 
   .jumbotron-container {
     position: absolute;
@@ -134,9 +131,20 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     bottom: -100px;
+  }
 
+  input {
+    width: 366px;
+    height: 65px;
+    border-radius: 50px;
+    padding-left: 2rem;
+  }
+
+  input::placeholder {
+    color: #A68BA7;
   }
 }
+
 // /Jumbotron
 
 // Apartments Section
@@ -147,6 +155,7 @@ export default {
     margin-top: 3rem;
   }
 }
+
 // /Apartments Section
 
 // Hosting Section
@@ -162,12 +171,13 @@ export default {
 
   }
 }
+
 // /Hosting Section
 
 .col-4 {
 
-p {
-  color: var(--lorem);
-}
+  p {
+    color: var(--lorem);
+  }
 }
 </style>
