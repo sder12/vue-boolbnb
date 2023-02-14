@@ -160,10 +160,10 @@ export default {
                   <input
                     type="range"
                     class="form-range"
-                    min="20"
-                    max="200"
+                    min="0.1"
+                    max="20"
                     id="rangeKm"
-                    step="20"
+                    step="0.1"
                     v-model="this.rangeKm"
                   />
                   <span>{{ rangeKm }} km</span>
