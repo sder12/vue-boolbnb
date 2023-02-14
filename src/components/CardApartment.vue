@@ -32,7 +32,7 @@ export default {
 </script>
 
 <template>
-  <div class="col my-3 d-flex justify-content-center">
+  <div class="col my-3 d-flex justify-content-sm-center justify-content-md-start">
     <div class="ms-card shadow-sm" style="width: 18rem;" @click="handleClick">
       <img :src="`${store.apiUrl}/storage/${apartment.cover_image}`" class="ms-card-img-top" alt="apartment.title">
       <div class="ms-card-body p-2">

@@ -26,16 +26,16 @@ export default {
                 <!-- Navigation -->
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <router-link :to="{ name: 'search' }" class="nav-link">
                                 Search
                             </router-link>
+                        </li> -->
+                        <li class="nav-item ">
+                            <a class="nav-link" href="http://127.0.0.1:8000/admin">Become a host</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link">Become a host</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link">Login</a>
+                            <a class="nav-link" href="http://127.0.0.1:8000/login">Login</a>
                         </li>
 
                     </ul>
