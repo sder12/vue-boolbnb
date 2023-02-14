@@ -51,8 +51,8 @@ export default {
         <h2 class="title">{{ apartment.title }}</h2>
         <div class="details">
           <p>{{ apartment.beds_number == 1 ? '1 bed' : apartment.beds_number + ' beds'  }}</p>
-          <p>{{ apartment.bathrooms_number == 1 ? '1 bathroom' : apartment.beds_number + ' bathrooms' }}</p>
-          <p>{{ apartment.rooms_number == 1 ? '1 room' : apartment.beds_number + ' rooms' }}</p>
+          <p>{{ apartment.bathrooms_number == 1 ? '1 bathroom' : apartment.bathrooms_number + ' bathrooms' }}</p>
+          <p>{{ apartment.rooms_number == 1 ? '1 room' : apartment.rooms_number + ' rooms' }}</p>
         </div>
         <div class="description mt-5">
           <p>{{ apartment.description }}</p>
