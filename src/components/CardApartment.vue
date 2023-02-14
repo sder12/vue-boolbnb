@@ -21,12 +21,19 @@ export default {
       return this.apartment.description;
     },
   },
+  methods: {
+    handleClick() {
+      this.$router.push(
+        '/' + this.apartment.slug
+      );
+    }
+  }
 };
 </script>
 
 <template>
   <div class="col-3 my-3">
-    <div class="ms-card" style="width: 18rem;">
+    <div class="ms-card shadow-sm" style="width: 18rem;" @click="handleClick">
       <img :src="`${store.apiUrl}/storage/${apartment.cover_image}`" class="ms-card-img-top" alt="apartment.title">
       <div class="ms-card-body p-2">
         <!-- Title -->
@@ -37,13 +44,6 @@ export default {
         <p class="ms-card-text mt-1" v-if="apartment.description">{{ descriptionPreview }}</p>
         <p class="ms-card-text mt-1" v-else> ---- </p>
         <!-- / Description -->
-
-        <router-link :to="{
-          name: 'show',
-          params: { slug: apartment.slug },
-        }" class="btn btn-primary">
-          <i class="fa-solid fa-eye"></i>
-        </router-link>
       </div>
     </div>
   </div>
@@ -56,6 +56,7 @@ export default {
   min-height: 400px;
   background-color: var(--bgGrey);
   border-top-right-radius: 30px;
+  cursor: pointer;
 
   .ms-card-body {
     .card-title {
