@@ -50,7 +50,7 @@ export default {
     <div class="container jumbotron-container">
       <div class="row">
         <!-- Left -->
-        <div class="col-4 text-center">
+        <div class="col-sm-12 col-md-4 text-center">
           <h3 class="fw-bold">Not sure where to go?</h3>
           <p class="mt-3">Discover breathtaking destinations and book the perfect vacation rental for your next
             adventure.
@@ -65,7 +65,7 @@ export default {
         </div>
 
         <!-- Right -->
-        <div class="col-8 text-center">
+        <div class="col-sm-12 col-md-8 text-center">
           <div class="img-container">
             <img id="front-home" src="../assets/front-home-1.svg" alt="">
           </div>
@@ -78,8 +78,8 @@ export default {
   <!-- Apartments -->
   <div class="container apartment-container">
 
-    <section id="apartments" class="row">
-      <h1>Most Viewed</h1>
+    <h1>Most Viewed</h1>
+    <section id="apartments" class="row row-cols-xl-4 row-cols-lg-3">
       <CardApartmentLoading v-if="loading" v-for="n in 4" />
       <CardApartment v-else v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
       <!-- <CardApartmentLoading v-for="n in 4" /> -->
@@ -91,12 +91,12 @@ export default {
   <section id="hosting">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-8 text-center">
+        <div class="col-sm-12 col-md-8 text-center">
           <div class="img-container">
             <img id="front-hosting" src="../assets/front-home-2.svg" alt="">
           </div>
         </div>
-        <div class="col-4 text-start">
+        <div class="col-sm-12 col-md-4 text-start">
           <h2 class="fw-bold">Try hosting</h2>
           <p class="mt-3">Earn extra income and unlock new
             opportunities by sharing your space.
