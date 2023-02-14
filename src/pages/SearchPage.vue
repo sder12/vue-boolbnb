@@ -103,6 +103,7 @@ export default {
           </div>
         </div>
 
+
         <!-- Button trigger modal -->
         <div class="col-7 text-end mt-4">
           <button type="button" class="ms-btn-filter ms-btn-color " data-bs-toggle="modal"
@@ -116,72 +117,87 @@ export default {
         </div>
       </section>
 
+
       <!-- Modal -->
-      <section>
-        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-          :class="{ 'show fade d-block': filterModal }">
-          <div class="modal-dialog">
-            <div class="modal-content">
+      <section class="modal fade mt-4" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" :class="{ 'show fade d-block': filterModal }">
+        <div class="modal-dialog">
+          <div class="modal-content ">
 
-              <!-- Modal header -->
-              <div class="modal-header text-center">
-                <div class="text-center w-100 pt-3">
-                  <h3>Filter</h3>
-                </div>
-                <div>
-                  <button type="button" class="btn-close text-end me-1" data-bs-dismiss="modal" aria-label="Close"
-                    @click="() => { this.filterModal = false; }"></button>
-                </div>
+            <!-- Modal header -->
+            <div class="modal-header text-center">
+              <div class="text-center w-100 pt-3">
+                <h3>Filter</h3>
               </div>
-              <!-- /Modal Header -->
+              <div>
+                <button type="button" class="btn-close text-end me-1" data-bs-dismiss="modal" aria-label="Close"
+                  @click="() => { this.filterModal = false; }"></button>
+              </div>
+            </div>
+            <!-- /Modal Header -->
 
-              <!-- Modal body -->
-              <div class="modal-body">
-                <!-- Range -->
-                <div class="mb-3">
-                  <label for="rangeKm" class="form-label filter-title">Range in km</label>
-                  <input type="range" class="form-range" min="0.1" max="20" id="rangeKm" step="0.1"
-                    v-model="this.rangeKm" />
-                  <span>{{ rangeKm }} km</span>
-                </div>
-                <!-- Rooms -->
-                <div class="mb-3">
-                  <p class="filter-title">Min rooms number</p>
-                  <input type="number" v-model="this.roomsInput" />
-                </div>
-                <!-- Beds -->
-                <div class="mb-3">
-                  <p class="filter-title">Min bed number</p>
-                  <input type="number" v-model="this.bedsInput" />
-                </div>
-                <!-- Services -->
-                <div class="mb-3">
-                  <p class="filter-title"> Services</p>
-                  <div class="form-check" v-for="service in this.store.services">
-                    <label class="form-check-label" :for="`services-${service.id}`">{{ service.name }}</label>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <!-- Range -->
+              <div class="form-group d-flex">
+                <label for="rangeKm" class="form-label filter-title w-50">
+                  <h5> RANGE in km </h5>
+                </label>
+                <input type="range" class="form-range w-35" min="0.1" max="20" id="rangeKm" step="0.1"
+                  v-model="this.rangeKm" />
+                <span>{{ rangeKm }} km</span>
+              </div>
+
+              <!-- Rooms -->
+              <div class="form-group d-flex">
+                <label class="form-label filter-title w-50">
+                  <h5> ROOMS number</h5>
+                </label>
+                <input class="form-control w-25" type="number" v-model="this.roomsInput" />
+              </div>
+
+              <!-- Beds -->
+              <div class="form-group d-flex">
+                <label class="form-label filter-title w-50">
+                  <h5> BEDS number</h5>
+                </label>
+                <input class="form-control w-25" type="number" v-model="this.bedsInput" />
+              </div>
+              <!-- Services -->
+              <div class="form-group">
+                <label class="form-label filter-title">
+                  <h5> Services</h5>
+                </label>
+                <div class="d-flex flex-wrap">
+                  <div class="form-check w-25" v-for="service in this.store.services">
+                    <label class="form-check-label" :for="`services-${service.id}`">{{
+                      service.name
+                    }}</label>
                     <input type="checkbox" v-model="this.servicesFilter" :value="`${service.id}`"
                       class="form-check-input" :id="`services-${service.id}`" />
                   </div>
                 </div>
-              </div>
-              <!-- Modal body -->
 
-              <!-- Modal-footer -->
-              <div class="modal-footer d-flex justify-content-between">
-                <button type="button" class="ms-btn-filter" data-bs-dismiss="modal" @click="
-                  () => {
-                    this.filterModal = false;
-                  }
-                ">
-                  Close
-                </button>
-                <a type="button" class="ms-btn-filter" @click="getFilterApartments">APPLY</a>
               </div>
-              <!-- /Modal-footer  -->
             </div>
+            <!-- Modal body -->
+
+            <!-- Modal-footer -->
+            <div class="modal-footer d-flex justify-content-between">
+              <button type="button" class="ms-btn-filter" data-bs-dismiss="modal" @click="
+                () => {
+                  this.filterModal = false;
+                }
+              ">
+                Close
+              </button>
+              <a type="button" class="ms-btn-filter" @click="getFilterApartments">APPLY</a>
+            </div>
+            <!-- /Modal-footer  -->
           </div>
         </div>
       </section>
+
     </div>
   </div>
   <!-- /Search -->
@@ -218,7 +234,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  background-color: #f2f4f7;
+  background-color: var(--bgGrey);
   padding: 5rem 0;
 }
 
@@ -226,11 +242,26 @@ export default {
   background-color: var(--secondaryMain);
 }
 
+
+
+//MODAL - filter
+
+// Border and margin
 .modal-header,
 .modal-body {
-  border-bottom: 4px solid var(--darkGrey);
+
+  border-bottom: 4px solid var(--loadingDarkGrey);
+
+  .form-group:not(:last-child) {
+    border-bottom: 2px solid var(--loadingDarkGrey);
+  }
+
+  .form-group {
+    margin: 2px 0;
+  }
 }
 
+//Text and Btns
 .modal-content {
   .modal-header {
     h3 {
@@ -247,9 +278,9 @@ export default {
   .modal-body {
     .filter-title {
       color: var(--darkBlue);
+      font-weight: bolder;
     }
   }
-
 
   .modal-footer {
     button {
