@@ -82,7 +82,6 @@ export default {
       <h1>Most Viewed</h1>
       <CardApartmentLoading v-if="loading" v-for="n in 4" />
       <CardApartment v-else v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
-      <!-- <CardApartmentLoading v-for="n in 4" /> -->
     </section>
   </div>
   <!--/  Apartments -->

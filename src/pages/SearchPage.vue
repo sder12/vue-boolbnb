@@ -90,6 +90,7 @@ export default {
   <!-- Search -->
   <div class="container-fluid wrapper">
     <div class="container">
+
       <section class="row justify-content-center flex-wrap">
         <div class="col-7 text-center d-flex flex-wrap">
           <input class="form-control me-2 w-75" :class="{ 'is-invalid': errors }" type="input" placeholder="Search"
@@ -98,18 +99,19 @@ export default {
             <i class="fa-solid fa-magnifying-glass"></i>
           </a>
           <div class="invalid-feedback text-start ps-2">
-            <strong>Inserisci un indirizzo o una citta'</strong>
+            <strong>Insert an adress or a city</strong>
           </div>
         </div>
 
         <!-- Button trigger modal -->
         <div class="col-7 text-end mt-4">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="
-            () => {
-              this.filterModal = true;
-            }
-          ">
-            Add more Filter
+          <button type="button" class="ms-btn-filter ms-btn-color " data-bs-toggle="modal"
+            data-bs-target="#exampleModal" @click="
+              () => {
+                this.filterModal = true;
+              }
+            ">
+            Apply Filter
           </button>
         </div>
       </section>
@@ -120,34 +122,41 @@ export default {
           :class="{ 'show fade d-block': filterModal }">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Filters</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="
-                  () => {
-                    this.filterModal = false;
-                  }
-                "></button>
+
+              <!-- Modal header -->
+              <div class="modal-header text-center">
+                <div class="text-center w-100 pt-3">
+                  <h3>Filter</h3>
+                </div>
+                <div>
+                  <button type="button" class="btn-close text-end me-1" data-bs-dismiss="modal" aria-label="Close"
+                    @click="() => { this.filterModal = false; }"></button>
+                </div>
               </div>
+              <!-- /Modal Header -->
+
+              <!-- Modal body -->
               <div class="modal-body">
+                <!-- Range -->
                 <div class="mb-3">
-                  <label for="rangeKm" class="form-label">Distanza massima</label>
+                  <label for="rangeKm" class="form-label filter-title">Range in km</label>
                   <input type="range" class="form-range" min="0.1" max="20" id="rangeKm" step="0.1"
                     v-model="this.rangeKm" />
                   <span>{{ rangeKm }} km</span>
                 </div>
-                <!-- imput per filtrare stanze -->
+                <!-- Rooms -->
                 <div class="mb-3">
-                  <p>numero di stanze minimo</p>
+                  <p class="filter-title">Min rooms number</p>
                   <input type="number" v-model="this.roomsInput" />
                 </div>
-
+                <!-- Beds -->
                 <div class="mb-3">
-                  <p>numero di letti minimo</p>
+                  <p class="filter-title">Min bed number</p>
                   <input type="number" v-model="this.bedsInput" />
                 </div>
-
+                <!-- Services -->
                 <div class="mb-3">
-                  <p>Servizi</p>
+                  <p class="filter-title"> Services</p>
                   <div class="form-check" v-for="service in this.store.services">
                     <label class="form-check-label" :for="`services-${service.id}`">{{ service.name }}</label>
                     <input type="checkbox" v-model="this.servicesFilter" :value="`${service.id}`"
@@ -155,16 +164,20 @@ export default {
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="
+              <!-- Modal body -->
+
+              <!-- Modal-footer -->
+              <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="ms-btn-filter" data-bs-dismiss="modal" @click="
                   () => {
                     this.filterModal = false;
                   }
                 ">
-                  Reset
+                  Close
                 </button>
-                <a type="button" class="btn btn-success" @click="getFilterApartments">Apply</a>
+                <a type="button" class="ms-btn-filter" @click="getFilterApartments">APPLY</a>
               </div>
+              <!-- /Modal-footer  -->
             </div>
           </div>
         </div>
@@ -207,5 +220,49 @@ export default {
 .wrapper {
   background-color: #f2f4f7;
   padding: 5rem 0;
+}
+
+.ms-btn-color {
+  background-color: var(--secondaryMain);
+}
+
+.modal-header,
+.modal-body {
+  border-bottom: 4px solid var(--darkGrey);
+}
+
+.modal-content {
+  .modal-header {
+    h3 {
+      font-weight: bolder;
+      font-size: 1.4rem;
+      color: var(--primaryMain);
+    }
+  }
+
+  .modal-body>div {
+    padding: 1rem 0;
+  }
+
+  .modal-body {
+    .filter-title {
+      color: var(--darkBlue);
+    }
+  }
+
+
+  .modal-footer {
+    button {
+      background-color: white;
+      color: black;
+      text-decoration: underline;
+    }
+
+    a {
+      background-color: var(--secondaryMainDarker);
+      text-decoration: none;
+    }
+  }
+
 }
 </style>
