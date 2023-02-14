@@ -79,7 +79,7 @@ export default {
   <div class="container apartment-container">
 
     <h1>Most Viewed</h1>
-    <section id="apartments" class="row row-cols-xl-4 row-cols-lg-3">
+    <section id="apartments" class="row row-cols-xl-4 row-cols-lg-3 justify-content-center">
       <CardApartmentLoading v-if="loading" v-for="n in 4" />
       <CardApartment v-else v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
     </section>
