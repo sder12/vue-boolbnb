@@ -1,0 +1,55 @@
+<script>
+export default {
+    name: "CardApartmentLoading",
+}
+</script>
+
+<template>
+    <div class="col-3 my-3">
+        <div class="ms-card shadow-sm">
+            <!--Fake img-->
+            <div class="ms-card-img-top"> </div>
+            <!--Fake img-->
+
+            <!-- Fake text -->
+            <div class="ms-card-body p-2">
+                <div class="ms-card-text mt-2"></div>
+                <div class="ms-card-text mt-2"></div>
+                <div class="ms-card-text mt-2"></div>
+            </div>
+            <!-- /Fake text -->
+        </div>
+    </div>
+</template>
+<style lang="scss" scoped>
+@use "../styles/general.scss" as *;
+
+.ms-card {
+    width: 18rem;
+    height: 100%;
+    min-height: 400px;
+    background-color: var(--bgGrey);
+    border-top-right-radius: 30px;
+
+
+    .ms-card-img-top {
+        width: 18rem;
+        height: 18rem;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        background-color: var(--loadingDarkGrey);
+    }
+
+    .ms-card-text {
+        min-height: 15px;
+        width: 60%;
+        border-radius: 30px;
+        background-color: var(--loadingDarkGrey);
+    }
+
+    .ms-card-text:first-child {
+        width: 80%;
+    }
+
+}
+</style>

@@ -2,11 +2,11 @@
 import { store } from "../store";
 import axios from "axios";
 import CardApartment from "../components/CardApartment.vue";
-import Loading from "../components/Loading.vue";
+import CardApartmentLoading from "../components/CardApartmentLoading.vue";
 
 export default {
   name: "SearchPage",
-  components: { CardApartment, Loading },
+  components: { CardApartment, CardApartmentLoading },
   data() {
     return {
       store,
@@ -92,14 +92,8 @@ export default {
     <div class="container">
       <section class="row justify-content-center flex-wrap">
         <div class="col-7 text-center d-flex flex-wrap">
-          <input
-            class="form-control me-2 w-75"
-            :class="{ 'is-invalid': errors }"
-            type="input"
-            placeholder="Search"
-            aria-label="Search"
-            v-model="this.store.addressInput"
-          />
+          <input class="form-control me-2 w-75" :class="{ 'is-invalid': errors }" type="input" placeholder="Search"
+            aria-label="Search" v-model="this.store.addressInput" />
           <a class="btn btn-dark" @click="getFilterApartments">
             <i class="fa-solid fa-magnifying-glass"></i>
           </a>
@@ -110,17 +104,11 @@ export default {
 
         <!-- Button trigger modal -->
         <div class="col-7 text-end mt-4">
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            @click="
-              () => {
-                this.filterModal = true;
-              }
-            "
-          >
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="
+            () => {
+              this.filterModal = true;
+            }
+          ">
             Add more Filter
           </button>
         </div>
@@ -128,44 +116,23 @@ export default {
 
       <!-- Modal -->
       <section>
-        <div
-          class="modal fade"
-          id="filterModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          :class="{ 'show fade d-block': filterModal }"
-        >
+        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+          :class="{ 'show fade d-block': filterModal }">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Filters</h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  @click="
-                    () => {
-                      this.filterModal = false;
-                    }
-                  "
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="
+                  () => {
+                    this.filterModal = false;
+                  }
+                "></button>
               </div>
               <div class="modal-body">
                 <div class="mb-3">
-                  <label for="rangeKm" class="form-label"
-                    >Distanza massima</label
-                  >
-                  <input
-                    type="range"
-                    class="form-range"
-                    min="0.1"
-                    max="20"
-                    id="rangeKm"
-                    step="0.1"
-                    v-model="this.rangeKm"
-                  />
+                  <label for="rangeKm" class="form-label">Distanza massima</label>
+                  <input type="range" class="form-range" min="0.1" max="20" id="rangeKm" step="0.1"
+                    v-model="this.rangeKm" />
                   <span>{{ rangeKm }} km</span>
                 </div>
                 <!-- imput per filtrare stanze -->
@@ -181,44 +148,22 @@ export default {
 
                 <div class="mb-3">
                   <p>Servizi</p>
-                  <div
-                    class="form-check"
-                    v-for="service in this.store.services"
-                  >
-                    <label
-                      class="form-check-label"
-                      :for="`services-${service.id}`"
-                      >{{ service.name }}</label
-                    >
-                    <input
-                      type="checkbox"
-                      v-model="this.servicesFilter"
-                      :value="`${service.id}`"
-                      class="form-check-input"
-                      :id="`services-${service.id}`"
-                    />
+                  <div class="form-check" v-for="service in this.store.services">
+                    <label class="form-check-label" :for="`services-${service.id}`">{{ service.name }}</label>
+                    <input type="checkbox" v-model="this.servicesFilter" :value="`${service.id}`"
+                      class="form-check-input" :id="`services-${service.id}`" />
                   </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  data-bs-dismiss="modal"
-                  @click="
-                    () => {
-                      this.filterModal = false;
-                    }
-                  "
-                >
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="
+                  () => {
+                    this.filterModal = false;
+                  }
+                ">
                   Reset
                 </button>
-                <a
-                  type="button"
-                  class="btn btn-success"
-                  @click="getFilterApartments"
-                  >Apply</a
-                >
+                <a type="button" class="btn btn-success" @click="getFilterApartments">Apply</a>
               </div>
             </div>
           </div>
@@ -229,27 +174,33 @@ export default {
   <!-- /Search -->
 
   <!-- Apartments -->
-  <Loading v-if="loading" />
-  <div v-else class="container">
-    <div v-if="notFound" class="text-center mt-5">
-      <h2>
-        La ricerca non è andata a buon fine :( riprova con un altro indirizzo o
-        città!
-      </h2>
+  <!-- IF Loading -->
+  <div v-if="loading" class="container mt-2">
+    <div class="row justify-content-center">
+      <CardApartmentLoading class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="n in 8" />
     </div>
+  </div>
+  <!-- ELSE  Loading -->
+  <div v-else class="container">
+    <!-- IF notFound -->
+    <div v-if="notFound" class="text-center my-5">
+      <h2> No exact matches :(</h2>
+      <h4> Try adjusting your <strong> search area.</strong></h4>
+    </div>
+    <!-- ELSE notFound -->
     <section v-else id="apartments" class="row">
-      <h1 v-if="store.searchedApartments.length == 0" class="text-center mt-5">
-        Nessun appartamento trovato!
-      </h1>
-      <CardApartment
-        v-else
-        v-for="apartment in store.searchedApartments"
-        :key="apartment.id"
-        :apartment="apartment"
-      />
+      <!-- Array empty -->
+      <div v-if="store.searchedApartments.length == 0" class="text-center mt-5">
+        <h2> No exact matches :(</h2>
+        <h4> Try changing or removing some of your <strong>filters</strong> or adjusting your <strong> search
+            area.</strong> </h4>
+      </div>
+      <!-- FOUND -->
+      <CardApartment v-else v-for="apartment in store.searchedApartments" :key="apartment.id" :apartment="apartment" />
     </section>
   </div>
   <!--/  Apartments -->
+
 </template>
 
 <style lang="scss" scoped>

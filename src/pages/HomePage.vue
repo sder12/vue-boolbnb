@@ -2,10 +2,11 @@
 import { store } from "../store";
 import axios from "axios";
 import CardApartment from "../components/CardApartment.vue";
-import Loading from "../components/Loading.vue";
+import CardApartmentLoading from "../components/CardApartmentLoading.vue";
+
 export default {
   name: "HomePage",
-  components: { CardApartment, Loading },
+  components: { CardApartment, CardApartmentLoading },
   data() {
     return {
       store,
@@ -76,10 +77,12 @@ export default {
 
   <!-- Apartments -->
   <div class="container apartment-container">
-    <Loading v-if="loading" />
-    <section id="apartments" class="row" v-else>
+
+    <section id="apartments" class="row">
       <h1>Most Viewed</h1>
-      <CardApartment v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
+      <CardApartmentLoading v-if="loading" v-for="n in 4" />
+      <CardApartment v-else v-for="apartment in apartments" :key="apartment.id" :apartment="apartment" />
+      <!-- <CardApartmentLoading v-for="n in 4" /> -->
     </section>
   </div>
   <!--/  Apartments -->
