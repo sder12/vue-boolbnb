@@ -6,7 +6,7 @@ export default {
 
 <template>
 
-    <div class="col my-3 d-flex justify-content-center">
+    <div class="col my-3 d-flex justify-content-sm-center justify-content-md-start">
 
         <div class="ms-card shadow-sm">
             <!--Fake img-->

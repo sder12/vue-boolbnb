@@ -91,8 +91,8 @@ export default {
   <div class="container-fluid wrapper">
     <div class="container">
 
-      <section class="row justify-content-center flex-wrap">
-        <div class="col-7 text-center d-flex flex-wrap">
+      <section class="row text-center">
+        <div class="col-6 text-center d-flex flex-wrap align-items-center">
           <input class="form-control me-2 w-75" :class="{ 'is-invalid': errors }" type="input" placeholder="Search"
             aria-label="Search" v-model="this.store.addressInput" />
           <a class="btn btn-dark" @click="getFilterApartments">
@@ -104,14 +104,15 @@ export default {
         </div>
 
         <!-- Button trigger modal -->
-        <div class="col-7 text-end mt-4">
-          <button type="button" class="ms-btn-filter ms-btn-color " data-bs-toggle="modal"
+        <div class="col-6 text-end">
+          <button type="button" class="ms-btn-filter ms-btn-color" data-bs-toggle="modal"
             data-bs-target="#exampleModal" @click="
               () => {
                 this.filterModal = true;
               }
             ">
-            Apply Filter
+            <i class="fa-solid fa-list-check"></i>
+            <span class="ms-1">Apply Filters</span>
           </button>
         </div>
       </section>
@@ -189,8 +190,8 @@ export default {
   <!-- Apartments -->
   <!-- IF Loading -->
   <div v-if="loading" class="container mt-2">
-    <div class="row justify-content-center">
-      <CardApartmentLoading class="col-12 col-md-6 col-lg-4 col-xl-3" v-for="n in 8" />
+    <div class="row row-cols-xl-4 row-cols-lg-3">
+      <CardApartmentLoading v-for="n in 8" />
     </div>
   </div>
   <!-- ELSE  Loading -->
@@ -201,7 +202,7 @@ export default {
       <h4> Try adjusting your <strong> search area.</strong></h4>
     </div>
     <!-- ELSE notFound -->
-    <section v-else id="apartments" class="row">
+    <section v-else id="apartments">
       <!-- Array empty -->
       <div v-if="store.searchedApartments.length == 0" class="text-center mt-5">
         <h2> No exact matches :(</h2>
@@ -209,7 +210,9 @@ export default {
             area.</strong> </h4>
       </div>
       <!-- FOUND -->
-      <CardApartment v-else v-for="apartment in store.searchedApartments" :key="apartment.id" :apartment="apartment" />
+      <div v-else class="row row-cols-xl-4 row-cols-lg-3">
+        <CardApartment v-for="apartment in store.searchedApartments" :key="apartment.id" :apartment="apartment" />
+      </div>
     </section>
   </div>
   <!--/  Apartments -->
