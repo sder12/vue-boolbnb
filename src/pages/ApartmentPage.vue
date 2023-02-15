@@ -10,6 +10,28 @@ export default {
       store,
       apartment: [],
       apiKey: "QEZMPbAxyM5B51twR2BRzWuWxSUDiBYg",
+      basicServices: [
+        {
+          icon: "fa-solid fa-house fs-3",
+          title: "Entire home",
+          subTitle: "You'll have the apartment to yourself"
+        },
+        {
+          icon: "fa-solid fa-spray-can-sparkles",
+          title: "Enhanced Clean",
+          subTitle: "This Host committed to Airnb's 5-step enhanced cleaning process."
+        },
+        {
+          icon: "fa-solid fa-door-closed",
+          title: "Self check-in",
+          subTitle: "Check yourself in with the keypad"
+        },
+        {
+          icon: "fa-regular fa-calendar-minus",
+          title: "Free cancellation before Feb 14",
+          subTitle: ""
+        }
+      ]
     };
   },
   methods: {
@@ -67,6 +89,30 @@ export default {
       </div>
     </div>
   </section>
+
+  <section class="basic_services p-5">
+    <div class="container">
+      <div class="icon-group-1 d-flex align-items-center" v-for="basicService in basicServices">
+        <div class="icon me-3 text-center">
+          <i :class="basicService.icon" class="fs-5"></i>
+        </div>
+        <div class="text">
+          <h5 class="fs-6">{{ basicService.title }}</h5>
+          <p class="text-secondary">{{ basicService.subTitle }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="advanced_services p-5">
+    <div class="container">
+      <h2>What this place offers</h2>
+      <div class="icon-group-2 d-flex align-items-center mt-3" v-for="service in this.apartment.services">
+        <i :class="service.icon_name" class="fa-solid me-3"></i>
+        <h5>{{ service.name }}</h5>
+      </div>
+    </div>
+  </div>
 
   <section id="position-apt" class="container-fluid mt-5">
     <h2 class="title mb-2">Where you'll be</h2>
@@ -355,6 +401,19 @@ export default {
     }
   }
 }
+
+// SECTION SERVICES
+.basic_services,
+.advanced-services {
+  border-top: 1px solid var(--lightGrey);
+  border-bottom: 1px solid var(--lightGrey);
+
+  p {
+    font-size: .8rem;
+  }
+}
+
+// /SECTION SERVICES
 
 #position-apt {
   height: 550px;
