@@ -10,7 +10,6 @@ export default {
     return {
       store,
       apartment: {},
-      apiKey: "QEZMPbAxyM5B51twR2BRzWuWxSUDiBYg",
       basicServices: [
         {
           icon: "fa-solid fa-house fs-3",
@@ -50,14 +49,14 @@ export default {
         this.createMap(
           this.apartment.address.latitude,
           this.apartment.address.longitude,
-          this.apiKey
+          this.store.keyTomTom
         );
       });
     },
 
     createMap(lat, long, key) {
       var map = tt.map({
-        key: key,
+        key,
         container: "map",
         center: [long, lat],
         zoom: 15,

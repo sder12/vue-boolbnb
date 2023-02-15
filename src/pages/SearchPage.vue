@@ -18,6 +18,7 @@ export default {
       bedsInput: null,
       rangeKm: 20,
       servicesFilter: [],
+      autocompleteResults: [],
     };
   },
   methods: {
@@ -78,6 +79,22 @@ export default {
           this.notFound = true;
         });
     },
+    getAutocompleteSearch() {
+      if (this.store.addressInput.length > 0) {
+        axios
+          .get(
+            `https://api.tomtom.com/search/2/search/${encodeURIComponent(
+              this.store.addressInput
+            )}.json?key=${
+              this.store.keyTomTom
+            }&language=it-IT&lat=41.9028&lon=12.4964&limit=5`
+          )
+          .then((resp) => {
+            this.autocompleteResults = resp.data.results;
+          })
+          .catch((err) => console.log(err));
+      }
+    },
   },
   created() {
     this.getFilterApartments();
@@ -90,48 +107,94 @@ export default {
   <!-- Search -->
   <div class="container-fluid wrapper">
     <div class="container">
-
       <section class="row text-center">
-        <div class="col-6 text-center d-flex flex-wrap align-items-center">
-          <input class="form-control me-2 w-75" :class="{ 'is-invalid': errors }" type="input" placeholder="Search"
-            aria-label="Search" v-model="this.store.addressInput" @keyup.enter="getFilterApartments" />
-          <a class="btn btn-dark" @click="getFilterApartments">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </a>
+        <div
+          class="col-12 col-lg-8 col-xl-6 text-center d-flex flex-wrap align-items-center mb-5 mb-lg-0"
+        >
+          <!-- Form Research -->
+          <div class="w-100">
+            <input
+              class="form-control input-search"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              @keyup.enter="getFilterApartments"
+              v-model="this.store.addressInput"
+              @input="getAutocompleteSearch"
+            />
+            <div
+              class="autocomplete pb-2 px-1 text-start bg-white"
+              :class="{ 'd-none': autocompleteResults.length === 0 }"
+            >
+              <ul>
+                <li
+                  v-for="city in autocompleteResults"
+                  @click="
+                    () => {
+                      store.addressInput = city.address.freeformAddress;
+                      getFilterApartments();
+                    }
+                  "
+                  class="autocomplete-link py-2 px-3"
+                >
+                  {{ city.address.freeformAddress }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /Form Research -->
           <div class="invalid-feedback text-start ps-2">
             <strong>Insert an adress or a city</strong>
           </div>
         </div>
 
-
         <!-- Button trigger modal -->
-        <div class="col-6 text-end">
-          <button type="button" class="ms-btn-filter ms-btn-color" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        <div class="col-12 col-lg-4 col-xl-6 text-end">
+          <button
+            type="button"
+            class="ms-btn-filter ms-btn-color"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
             @click="
               () => {
                 this.filterModal = true;
               }
-            ">
+            "
+          >
             <i class="fa-solid fa-list-check"></i>
             <span class="ms-1">Apply Filters</span>
           </button>
         </div>
       </section>
 
-
       <!-- Modal -->
-      <section class="modal pt-4" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        :class="{ 'show fade d-block ms-bg-fade': filterModal }">
+      <section
+        class="modal pt-4"
+        id="filterModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        :class="{ 'show fade d-block ms-bg-fade': filterModal }"
+      >
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-
             <!-- Modal header -->
             <div class="modal-header text-center">
               <div class="text-center w-100 pt-3">
                 <h3>Filter</h3>
               </div>
-              <div> <button type="button" class="btn-close text-end me-1" data-bs-dismiss="modal" aria-label="Close"
-                  @click="() => { this.filterModal = false; }"></button>
+              <div>
+                <button
+                  type="button"
+                  class="btn-close text-end me-1"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  @click="
+                    () => {
+                      this.filterModal = false;
+                    }
+                  "
+                ></button>
               </div>
             </div>
             <!-- /Modal Header -->
@@ -141,64 +204,97 @@ export default {
               <!-- Range -->
               <div class="form-group d-flex">
                 <label for="rangeKm" class="form-label filter-title w-50">
-                  <h5> RANGE in km </h5>
+                  <h5>RANGE in km</h5>
                 </label>
-                <input type="range" class="form-range w-35" min="0.1" max="20" id="rangeKm" step="0.1"
-                  v-model="this.rangeKm" />
+                <input
+                  type="range"
+                  class="form-range w-35"
+                  min="0.1"
+                  max="20"
+                  id="rangeKm"
+                  step="0.1"
+                  v-model="this.rangeKm"
+                />
                 <span>{{ rangeKm }} km</span>
               </div>
 
               <!-- Rooms -->
-              <div class="form-group d-flex ">
+              <div class="form-group d-flex">
                 <label class="form-label filter-title w-50">
-                  <h5> ROOMS number</h5>
+                  <h5>ROOMS number</h5>
                 </label>
-                <input class="form-control w-25" type="number" v-model="this.roomsInput" />
+                <input
+                  class="form-control w-25"
+                  type="number"
+                  v-model="this.roomsInput"
+                />
               </div>
 
               <!-- Beds -->
               <div class="form-group d-flex">
                 <label class="form-label filter-title w-50">
-                  <h5> BEDS number</h5>
+                  <h5>BEDS number</h5>
                 </label>
-                <input class="form-control w-25" type="number" v-model="this.bedsInput" />
+                <input
+                  class="form-control w-25"
+                  type="number"
+                  v-model="this.bedsInput"
+                />
               </div>
 
               <!-- Services -->
               <div class="form-group">
                 <label class="form-label filter-title">
-                  <h5> Services</h5>
+                  <h5>Services</h5>
                 </label>
                 <div class="row d-flex flex-wrap justify-content-end">
-                  <div class="form-check ms-5 col col-6 col-lg-4" v-for="service in this.store.services">
-                    <label class="form-check-label" :for="`services-${service.id}`">{{
-                      service.name
-                    }}</label>
-                    <input type="checkbox" v-model="this.servicesFilter" :value="`${service.id}`"
-                      class="form-check-input" :id="`services-${service.id}`" />
+                  <div
+                    class="form-check ms-5 col col-6 col-lg-4"
+                    v-for="service in this.store.services"
+                  >
+                    <label
+                      class="form-check-label"
+                      :for="`services-${service.id}`"
+                      >{{ service.name }}</label
+                    >
+                    <input
+                      type="checkbox"
+                      v-model="this.servicesFilter"
+                      :value="`${service.id}`"
+                      class="form-check-input"
+                      :id="`services-${service.id}`"
+                    />
                   </div>
                 </div>
-
               </div>
             </div>
             <!-- Modal body -->
 
             <!-- Modal-footer -->
             <div class="modal-footer d-flex justify-content-between">
-              <button type="button" class="ms-btn-filter" data-bs-dismiss="modal" @click="
-                () => {
-                  this.filterModal = false;
-                }
-              ">
+              <button
+                type="button"
+                class="ms-btn-filter"
+                data-bs-dismiss="modal"
+                @click="
+                  () => {
+                    this.filterModal = false;
+                  }
+                "
+              >
                 Close
               </button>
-              <a type="button" class="ms-btn-filter" @click="getFilterApartments">APPLY</a>
+              <a
+                type="button"
+                class="ms-btn-filter"
+                @click="getFilterApartments"
+                >APPLY</a
+              >
             </div>
             <!-- /Modal-footer  -->
           </div>
         </div>
       </section>
-
     </div>
   </div>
   <!-- /Search -->
@@ -206,41 +302,73 @@ export default {
   <!-- Apartments -->
 
   <!-- IF Loading -->
-  <div v-if="loading" class="container mt-2 ">
+  <div v-if="loading" class="container mt-2">
     <div class="row row-cols-xl-4 row-cols-lg-3">
       <CardApartmentLoading v-for="n in 8" />
     </div>
   </div>
   <!-- ELSE  Loading -->
-  <div v-else class="container ">
+  <div v-else class="container">
     <!-- IF notFound -->
     <div v-if="notFound" class="text-center my-5">
-      <h2> No exact matches :(</h2>
-      <h4> Try adjusting your <strong> search area.</strong></h4>
+      <h2>No exact matches :(</h2>
+      <h4>Try adjusting your <strong> search area.</strong></h4>
     </div>
     <!-- ELSE notFound -->
     <section v-else id="apartments">
       <!-- Array empty -->
       <div v-if="store.searchedApartments.length == 0" class="text-center mt-5">
-        <h2> No exact matches :(</h2>
-        <h4> Try changing or removing some of your <strong>filters</strong> or adjusting your <strong> search
-            area.</strong> </h4>
+        <h2>No exact matches :(</h2>
+        <h4>
+          Try changing or removing some of your <strong>filters</strong> or
+          adjusting your <strong> search area.</strong>
+        </h4>
       </div>
       <!-- FOUND -->
       <div v-else class="row row-cols-xl-4 row-cols-lg-3">
-        <CardApartment v-for="apartment in store.searchedApartments" :key="apartment.id" :apartment="apartment" />
+        <CardApartment
+          v-for="apartment in store.searchedApartments"
+          :key="apartment.id"
+          :apartment="apartment"
+        />
       </div>
     </section>
   </div>
   <!--/  Apartments -->
-
-
 </template>
 
 <style lang="scss" scoped>
 .wrapper {
   background-color: var(--bgGrey);
   padding: 5rem 0;
+
+  .input-search {
+    position: relative;
+    height: 65px;
+    border-radius: 50px;
+    padding-left: 2rem;
+    z-index: 10;
+
+    &::placeholder {
+      color: #a68ba7;
+    }
+  }
+
+  .autocomplete {
+    position: relative;
+    padding-top: 85px;
+    transform: translateY(-65px);
+    border-radius: 50px;
+    z-index: 2;
+    border: 2px solid #ced4da;
+  }
+
+  .autocomplete-link {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--lightGrey);
+    }
+  }
 }
 
 .ms-btn-color {
@@ -251,9 +379,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.372);
 }
 
-
-
-
 //MODAL - filter
 
 .modal-body {
@@ -263,7 +388,6 @@ export default {
 // Border and margin
 .modal-header,
 .modal-body {
-
   border-bottom: 4px solid var(--loadingDarkGrey);
 
   .form-group:not(:last-child) {
@@ -285,7 +409,7 @@ export default {
     }
   }
 
-  .modal-body>div {
+  .modal-body > div {
     padding: 1rem 0;
   }
 
@@ -308,6 +432,5 @@ export default {
       text-decoration: none;
     }
   }
-
 }
 </style>
