@@ -92,7 +92,7 @@ export default {
 
   <section class="basic_services p-5">
     <div class="container">
-      <div class="icon-group-1 d-flex align-items-center" v-for="basicService in basicServices">
+      <div class="icon-group-1 d-flex align-items-center mt-3" v-for="basicService in basicServices">
         <div class="icon me-3 text-center">
           <i :class="basicService.icon" class="fs-5"></i>
         </div>
