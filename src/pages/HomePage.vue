@@ -97,14 +97,16 @@ export default {
         </div>
         <div class="col-sm-12 col-md-4 text-start">
           <h2 class="fw-bold">Try hosting</h2>
-          <p class="mt-3">Earn extra income and unlock new
+          <p class="my-5">Earn extra income and unlock new
             opportunities by sharing your space.
             Earn extra income and unlock new
             opportunities by sharing your space.
           </p>
-          <button class="ms-btn ms-btn-1 mt-4">
+
+          <a href="http://127.0.0.1:8000/register" class="ms-btn ms-btn-1">
             <span>LEARN MORE</span>
-          </button>
+          </a>
+
         </div>
       </div>
     </div>
@@ -170,8 +172,8 @@ export default {
 
   .ms-btn-1 {
     background-color: var(--primaryMain);
-
   }
+
 }
 
 // /Hosting Section
