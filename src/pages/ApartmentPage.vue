@@ -2,36 +2,44 @@
 import { store } from "../store";
 import axios from "axios";
 import tt from "@tomtom-international/web-sdk-maps";
+import { TouchPitchHandler } from "mapbox-gl";
 
 export default {
   name: "Details",
   data() {
     return {
       store,
-      apartment: [],
+      apartment: {},
       apiKey: "QEZMPbAxyM5B51twR2BRzWuWxSUDiBYg",
       basicServices: [
         {
           icon: "fa-solid fa-house fs-3",
           title: "Entire home",
-          subTitle: "You'll have the apartment to yourself"
+          subTitle: "You'll have the apartment to yourself",
         },
         {
           icon: "fa-solid fa-spray-can-sparkles",
           title: "Enhanced Clean",
-          subTitle: "This Host committed to Airnb's 5-step enhanced cleaning process."
+          subTitle:
+            "This Host committed to Airnb's 5-step enhanced cleaning process.",
         },
         {
           icon: "fa-solid fa-door-closed",
           title: "Self check-in",
-          subTitle: "Check yourself in with the keypad"
+          subTitle: "Check yourself in with the keypad",
         },
         {
           icon: "fa-regular fa-calendar-minus",
           title: "Free cancellation before Feb 14",
-          subTitle: ""
-        }
-      ]
+          subTitle: "",
+        },
+      ],
+      fullnameForm: "",
+      emailForm: "",
+      messageForm: "",
+      errorFullname: false,
+      errorEmail: false,
+      errorMessage: false,
     };
   },
   methods: {
@@ -57,11 +65,46 @@ export default {
 
       var marker = new tt.Marker().setLngLat([long, lat]).addTo(map);
     },
+
+    sendMessage() {
+      this.errorFullname = false;
+      this.errorEmail = false;
+      this.errorMessage = false;
+      if (this.fullnameForm && this.emailForm && this.messageForm) {
+        const params = {
+          apartment_id: this.apartment.id,
+          fullname: this.fullnameForm,
+          email: this.emailForm,
+          message: this.messageForm,
+        };
+
+        axios
+          .post(`${this.store.apiUrl}/api/add-message`, params)
+          .then((resp) => {
+            console.log(resp);
+            this.$router.push({ name: "sent-message" });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        if (!this.fullnameForm) {
+          this.errorFullname = true;
+        }
+
+        if (!this.emailForm) {
+          this.errorEmail = true;
+        }
+
+        if (!this.messageForm) {
+          this.errorMessage = true;
+        }
+      }
+    },
   },
   created() {
     this.getApartment();
   },
-  computed: {},
 };
 </script>
 
@@ -72,9 +115,27 @@ export default {
         <div class="bar mt-3 mb-3"></div>
         <h2 class="title">{{ apartment.title }}</h2>
         <div class="details">
-          <p>{{ apartment.beds_number == 1 ? '1 bed' : apartment.beds_number + ' beds'  }}</p>
-          <p>{{ apartment.bathrooms_number == 1 ? '1 bathroom' : apartment.bathrooms_number + ' bathrooms' }}</p>
-          <p>{{ apartment.rooms_number == 1 ? '1 room' : apartment.rooms_number + ' rooms' }}</p>
+          <p>
+            {{
+              apartment.beds_number == 1
+                ? "1 bed"
+                : apartment.beds_number + " beds"
+            }}
+          </p>
+          <p>
+            {{
+              apartment.bathrooms_number == 1
+                ? "1 bathroom"
+                : apartment.bathrooms_number + " bathrooms"
+            }}
+          </p>
+          <p>
+            {{
+              apartment.rooms_number == 1
+                ? "1 room"
+                : apartment.rooms_number + " rooms"
+            }}
+          </p>
         </div>
         <div class="description mt-5">
           <p>{{ apartment.description }}</p>
@@ -92,7 +153,10 @@ export default {
 
   <section class="basic_services p-5">
     <div class="container">
-      <div class="icon-group-1 d-flex align-items-center mt-3" v-for="basicService in basicServices">
+      <div
+        class="icon-group-1 d-flex align-items-center mt-3"
+        v-for="basicService in basicServices"
+      >
         <div class="icon me-3 text-center">
           <i :class="basicService.icon" class="fs-5"></i>
         </div>
@@ -107,7 +171,10 @@ export default {
   <div class="advanced_services p-5">
     <div class="container">
       <h2>What this place offers</h2>
-      <div class="icon-group-2 d-flex align-items-center mt-3" v-for="service in this.apartment.services">
+      <div
+        class="icon-group-2 d-flex align-items-center mt-3"
+        v-for="service in this.apartment.services"
+      >
         <i :class="service.icon_name" class="fa-solid me-3"></i>
         <h5>{{ service.name }}</h5>
       </div>
@@ -303,38 +370,62 @@ export default {
           <h3 class="contact__title mb-4">Get in touch today</h3>
         </div>
         <div class="contact__form">
-          <div class="contact__form-div">
-            <label class="contact__form-tag"></label>
-            <input
-              type="text"
-              name="name"
-              class="contact__form-input"
-              placeholder="name"
-            />
+          <div class="mb-3">
+            <div class="contact__form-div">
+              <label class="contact__form-tag"></label>
+              <input
+                required
+                type="text"
+                name="name"
+                class="contact__form-input"
+                :class="{ 'is-invalid-custom': errorFullname }"
+                placeholder="name"
+                v-model="fullnameForm"
+              />
+            </div>
+            <div v-if="errorFullname" class="invalid-feedback d-block">
+              <strong>The name is required!</strong>
+            </div>
           </div>
 
-          <div class="contact__form-div">
-            <label class="contact__form-tag"></label>
-            <input
-              type="email"
-              name="email"
-              class="contact__form-input"
-              placeholder="email"
-            />
+          <div class="mb-3">
+            <div class="contact__form-div">
+              <label class="contact__form-tag"></label>
+              <input
+                required
+                type="email"
+                name="email"
+                class="contact__form-input"
+                :class="{ 'is-invalid-custom': errorEmail }"
+                placeholder="email"
+                v-model="emailForm"
+              />
+            </div>
+            <div v-if="errorEmail" class="invalid-feedback d-block">
+              <strong>The email is required!</strong>
+            </div>
           </div>
 
-          <div class="contact__form-div contact__form-area">
-            <label class="contact__form-tag"></label>
-            <textarea
-              name="project"
-              cols="30"
-              rows="10"
-              class="contact__form-input"
-              placeholder="Please type your message here..."
-            ></textarea>
+          <div class="mb-3">
+            <div class="contact__form-div contact__form-area">
+              <label class="contact__form-tag"></label>
+              <textarea
+                required
+                name="project"
+                cols="30"
+                rows="10"
+                class="contact__form-input"
+                :class="{ 'is-invalid-custom': errorMessage }"
+                placeholder="Please type your message here..."
+                v-model="messageForm"
+              ></textarea>
+            </div>
+            <div v-if="errorMessage" class="invalid-feedback d-block">
+              <strong>The message is required!</strong>
+            </div>
           </div>
 
-          <button class="btn">Send Message</button>
+          <button class="btn" @click="sendMessage">Send Message</button>
         </div>
       </div>
     </div>
@@ -409,7 +500,7 @@ export default {
   border-bottom: 1px solid var(--lightGrey);
 
   p {
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -462,7 +553,6 @@ export default {
 
   .contact__form-div {
     position: relative;
-    margin-bottom: 2rem;
     height: 4rem;
   }
 
