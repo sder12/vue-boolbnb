@@ -94,7 +94,7 @@ export default {
       <section class="row text-center">
         <div class="col-6 text-center d-flex flex-wrap align-items-center">
           <input class="form-control me-2 w-75" :class="{ 'is-invalid': errors }" type="input" placeholder="Search"
-            aria-label="Search" v-model="this.store.addressInput" />
+            aria-label="Search" v-model="this.store.addressInput" @keyup.enter="getFilterApartments" />
           <a class="btn btn-dark" @click="getFilterApartments">
             <i class="fa-solid fa-magnifying-glass"></i>
           </a>
@@ -120,8 +120,8 @@ export default {
 
 
       <!-- Modal -->
-      <section class="modal pt-4  " id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" :class="{ 'show fade d-block ms-bg-fade': filterModal }">
+      <section class="modal pt-4" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        :class="{ 'show fade d-block ms-bg-fade': filterModal }">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
 
@@ -130,8 +130,7 @@ export default {
               <div class="text-center w-100 pt-3">
                 <h3>Filter</h3>
               </div>
-              <div>
-                <button type="button" class="btn-close text-end me-1" data-bs-dismiss="modal" aria-label="Close"
+              <div> <button type="button" class="btn-close text-end me-1" data-bs-dismiss="modal" aria-label="Close"
                   @click="() => { this.filterModal = false; }"></button>
               </div>
             </div>
@@ -150,7 +149,7 @@ export default {
               </div>
 
               <!-- Rooms -->
-              <div class="form-group d-flex">
+              <div class="form-group d-flex ">
                 <label class="form-label filter-title w-50">
                   <h5> ROOMS number</h5>
                 </label>
@@ -164,13 +163,14 @@ export default {
                 </label>
                 <input class="form-control w-25" type="number" v-model="this.bedsInput" />
               </div>
+
               <!-- Services -->
               <div class="form-group">
                 <label class="form-label filter-title">
                   <h5> Services</h5>
                 </label>
-                <div class="d-flex flex-wrap">
-                  <div class="form-check w-25" v-for="service in this.store.services">
+                <div class="row d-flex flex-wrap justify-content-end">
+                  <div class="form-check ms-5 col col-6 col-lg-4" v-for="service in this.store.services">
                     <label class="form-check-label" :for="`services-${service.id}`">{{
                       service.name
                     }}</label>
@@ -204,14 +204,15 @@ export default {
   <!-- /Search -->
 
   <!-- Apartments -->
+
   <!-- IF Loading -->
-  <div v-if="loading" class="container mt-2">
+  <div v-if="loading" class="container mt-2 ">
     <div class="row row-cols-xl-4 row-cols-lg-3">
       <CardApartmentLoading v-for="n in 8" />
     </div>
   </div>
   <!-- ELSE  Loading -->
-  <div v-else class="container">
+  <div v-else class="container ">
     <!-- IF notFound -->
     <div v-if="notFound" class="text-center my-5">
       <h2> No exact matches :(</h2>
@@ -233,6 +234,7 @@ export default {
   </div>
   <!--/  Apartments -->
 
+
 </template>
 
 <style lang="scss" scoped>
@@ -251,14 +253,12 @@ export default {
 
 
 
+
 //MODAL - filter
 
-// .modal-dialog {
-
-//   .modal-content {
-//     width: 60vw;
-//   }
-// }
+.modal-body {
+  padding: 2rem 5rem;
+}
 
 // Border and margin
 .modal-header,

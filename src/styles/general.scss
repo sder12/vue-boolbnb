@@ -18,10 +18,16 @@ ul {
     list-style: none;
 }
 
-h5 {
-    padding: 0;
-    margin: 0;
+
+a {
+    text-decoration: none;
+
+    &:hover {
+        color: inherit;
+    }
 }
+
+>>>>>>> 18a600c752385917fc408b47b70eda9a89bb4abe
 // COMMON
 .ms-btn {
     color: white;
