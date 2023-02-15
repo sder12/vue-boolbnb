@@ -106,8 +106,8 @@ export default {
 
         <!-- Button trigger modal -->
         <div class="col-6 text-end">
-          <button type="button" class="ms-btn-filter ms-btn-color" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" @click="
+          <button type="button" class="ms-btn-filter ms-btn-color" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            @click="
               () => {
                 this.filterModal = true;
               }
@@ -120,10 +120,10 @@ export default {
 
 
       <!-- Modal -->
-      <section class="modal fade mt-4" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" :class="{ 'show fade d-block': filterModal }">
-        <div class="modal-dialog">
-          <div class="modal-content ">
+      <section class="modal pt-4  " id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" :class="{ 'show fade d-block ms-bg-fade': filterModal }">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
 
             <!-- Modal header -->
             <div class="modal-header text-center">
@@ -245,9 +245,20 @@ export default {
   background-color: var(--secondaryMain);
 }
 
+.ms-bg-fade {
+  background-color: rgba(0, 0, 0, 0.372);
+}
+
 
 
 //MODAL - filter
+
+// .modal-dialog {
+
+//   .modal-content {
+//     width: 60vw;
+//   }
+// }
 
 // Border and margin
 .modal-header,
