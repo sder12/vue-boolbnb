@@ -173,10 +173,10 @@ export default {
         class="icon-group-1 d-flex align-items-center mt-3"
         v-for="basicService in basicServices"
       >
-        <div class="icon me-3 text-center">
+        <div class="icon text-center">
           <i :class="basicService.icon" class="fs-5"></i>
         </div>
-        <div class="text">
+        <div class="text ms-2">
           <h5 class="fs-6">{{ basicService.title }}</h5>
           <p class="text-secondary">{{ basicService.subTitle }}</p>
         </div>
@@ -187,12 +187,15 @@ export default {
   <div class="advanced_services p-5">
     <div class="container">
       <h2>What this place offers</h2>
-      <div
-        class="icon-group-2 d-flex align-items-center mt-3"
-        v-for="service in this.apartment.services"
-      >
-        <i :class="service.icon_name" class="fa-solid me-3"></i>
-        <h5>{{ service.name }}</h5>
+      <div class="row">
+        <div class="col-xs-1 col-sm-6" v-for="service in this.apartment.services">
+          <div
+            class="icon-group-2 d-flex align-items-center mt-3"
+          >
+            <i :class="service.icon_name" class="fa-solid me-3"></i>
+            <h5>{{ service.name }}</h5>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -519,6 +522,10 @@ export default {
   p {
     font-size: 0.8rem;
   }
+}
+
+.icon {
+  width: 50px;
 }
 
 // /SECTION SERVICES
