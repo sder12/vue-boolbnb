@@ -14,7 +14,7 @@ export default {
           <div class="fake-text mb-2"></div>
           <div class="fake-text"></div>
         </div>
-        <div class="fake-description mt-5 text-end">
+        <div class="fake-description mt-5 text-center">
           <p class="fake-paragraph mb-2"></p>
           <p class="fake-paragraph mb-2"></p>
           <p class="fake-paragraph mb-2"></p>
@@ -24,7 +24,7 @@ export default {
       </div>
       <div class="col col-md-5">
         <div
-          class="fake-img-square d-flex align-items-center justify-content-center"
+          class="fake-img-square d-flex align-items-center justify-content-center mt-3"
         >
           <i class="fa-solid fa-mountain-sun"></i>
         </div>
@@ -56,11 +56,14 @@ export default {
       height: 14px;
       border-radius: 10px;
       background-color: var(--lightGrey);
+
       background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
       display: inline-block;
       background-size: 200% 100%;
 
       animation: 1.5s shine linear infinite;
+
+      display: inline-block;
     }
   }
 
@@ -78,9 +81,12 @@ export default {
   .fake-img-square {
     width: 400px;
     height: 400px;
-    border-top-left-radius: 30px;
+
     background: linear-gradient(100deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
     background-size: 200% 100%;
+
+    border-radius: 187px 0px 0px 0px;
+
     background-color: var(--lightGrey);
     animation: 1.5s shine linear infinite;
 
