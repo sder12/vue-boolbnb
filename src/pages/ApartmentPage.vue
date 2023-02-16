@@ -64,12 +64,20 @@ export default {
 
       var marker = new tt.Marker().setLngLat([long, lat]).addTo(map);
     },
-
+    isEmail(email) {
+      return /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
+        email
+      );
+    },
     sendMessage() {
       this.errorFullname = false;
       this.errorEmail = false;
       this.errorMessage = false;
-      if (this.fullnameForm && this.emailForm && this.messageForm) {
+      if (
+        this.fullnameForm &&
+        this.isEmail(this.emailForm) &&
+        this.messageForm
+      ) {
         const params = {
           apartment_id: this.apartment.id,
           fullname: this.fullnameForm,
@@ -91,7 +99,7 @@ export default {
           this.errorFullname = true;
         }
 
-        if (!this.emailForm) {
+        if (!this.emailForm || !this.isEmail(this.emailForm)) {
           this.errorEmail = true;
         }
 
@@ -401,7 +409,7 @@ export default {
               />
             </div>
             <div v-if="errorEmail" class="invalid-feedback d-block">
-              <strong>The email is required!</strong>
+              <strong>The email is required or invalid!</strong>
             </div>
           </div>
 
