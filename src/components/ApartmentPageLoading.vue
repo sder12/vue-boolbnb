@@ -1,11 +1,11 @@
 <script>
 export default {
-    name: "ApartmentPageLoading"
-}
+  name: "ApartmentPageLoading",
+};
 </script>
 
 <template>
-<section id="apartment" class="container">
+  <section id="apartment" class="container">
     <div class="row">
       <div class="col col-md-6">
         <div class="bar mt-3 mb-3"></div>
@@ -23,34 +23,44 @@ export default {
         </div>
       </div>
       <div class="col col-md-5">
-        <div class="fake-img-square d-flex align-items-center justify-content-center">
-            <i class="fa-solid fa-mountain-sun"></i>
+        <div
+          class="fake-img-square d-flex align-items-center justify-content-center"
+        >
+          <i class="fa-solid fa-mountain-sun"></i>
         </div>
       </div>
     </div>
-</section>
+  </section>
 </template>
 
 <style lang="scss">
 @use "../styles/general.scss" as *;
+
 #apartment {
   .row {
     display: flex;
     justify-content: space-between;
 
     .fake-text {
-        width: 300px;
-        height: 20px;
-        border-radius: 10px;
-        background-color: var(--lightGrey);
+      width: 300px;
+      height: 20px;
+      border-radius: 10px;
+      background-color: var(--lightGrey);
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      background-size: 200% 100%;
+      animation: 1.5s shine linear infinite;
     }
 
     .fake-paragraph {
-        width: 400px;
-        height: 14px;
-        border-radius: 10px;
-        background-color: var(--lightGrey);
-        display: inline-block;
+      width: 400px;
+      height: 14px;
+      border-radius: 10px;
+      background-color: var(--lightGrey);
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      display: inline-block;
+      background-size: 200% 100%;
+
+      animation: 1.5s shine linear infinite;
     }
   }
 
@@ -69,11 +79,20 @@ export default {
     width: 400px;
     height: 400px;
     border-top-left-radius: 30px;
+    background: linear-gradient(100deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
     background-color: var(--lightGrey);
+    animation: 1.5s shine linear infinite;
 
     i {
-        color: white;
-        font-size: 5rem;
+      color: white;
+      font-size: 5rem;
+    }
+  }
+
+  @keyframes shine {
+    to {
+      background-position-x: -200%;
     }
   }
 }
