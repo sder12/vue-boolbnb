@@ -38,7 +38,9 @@ export default {
         this.autocompleteResults = [];
         this.$router.push({
           name: "search",
-          params: { address: this.store.addressInput },
+          params: {
+            address: this.store.addressInput,
+          },
         });
       }
     },

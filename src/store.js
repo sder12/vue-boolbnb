@@ -5,5 +5,9 @@ export const store = reactive({
     addressInput: '',
     services: [],
     searchedApartments: [],
-    keyTomTom: "QEZMPbAxyM5B51twR2BRzWuWxSUDiBYg"
+    keyTomTom: "QEZMPbAxyM5B51twR2BRzWuWxSUDiBYg",
+    roomsInput: null,
+    bedsInput: null,
+    rangeKm: 20,
+    servicesFilter: [],
 });

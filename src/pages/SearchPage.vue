@@ -14,10 +14,6 @@ export default {
       errors: false,
       notFound: false,
       filterModal: false,
-      roomsInput: null,
-      bedsInput: null,
-      rangeKm: 20,
-      servicesFilter: [],
       autocompleteResults: [],
     };
   },
@@ -30,6 +26,7 @@ export default {
         this.errors = false;
         this.notFound = false;
 
+        //Address
         if (!this.store.addressInput) {
           this.store.addressInput = this.$route.params.address;
         }
@@ -37,25 +34,27 @@ export default {
         if (this.store.addressInput !== this.$route.params.address) {
           this.$router.replace({
             name: "search",
-            params: { address: this.store.addressInput },
+            params: {
+              address: this.store.addressInput,
+            },
           });
         }
 
         let params = {
           address: this.store.addressInput,
-          range: this.rangeKm,
+          range: this.store.rangeKm,
         };
 
-        if (this.bedsInput) {
-          params.beds_number = this.bedsInput;
+        if (this.store.bedsInput) {
+          params.beds_number = this.store.bedsInput;
         }
 
-        if (this.roomsInput) {
-          params.rooms_number = this.roomsInput;
+        if (this.store.roomsInput) {
+          params.rooms_number = this.store.roomsInput;
         }
 
-        if (this.servicesFilter) {
-          params.services = this.servicesFilter;
+        if (this.store.servicesFilter) {
+          params.services = this.store.servicesFilter;
         }
 
         axios
@@ -108,10 +107,10 @@ export default {
       }
     },
     resetFilter() {
-      this.rangeKm = 20;
-      this.roomsInput = null;
-      this.bedsInput = null;
-      this.servicesFilter = [];
+      this.store.rangeKm = 20;
+      this.store.roomsInput = null;
+      this.store.bedsInput = null;
+      this.store.servicesFilter = [];
     },
   },
   created() {
@@ -231,9 +230,9 @@ export default {
                   max="20"
                   id="rangeKm"
                   step="0.1"
-                  v-model="this.rangeKm"
+                  v-model="this.store.rangeKm"
                 />
-                <span>{{ rangeKm }} km</span>
+                <span>{{ store.rangeKm }} km</span>
               </div>
 
               <!-- Rooms -->
@@ -244,7 +243,7 @@ export default {
                 <input
                   class="form-control w-25"
                   type="number"
-                  v-model="this.roomsInput"
+                  v-model="this.store.roomsInput"
                   min="1"
                 />
               </div>
@@ -257,7 +256,7 @@ export default {
                 <input
                   class="form-control w-25"
                   type="number"
-                  v-model="this.bedsInput"
+                  v-model="this.store.bedsInput"
                   min="1"
                 />
               </div>
@@ -279,7 +278,7 @@ export default {
                     >
                     <input
                       type="checkbox"
-                      v-model="this.servicesFilter"
+                      v-model="this.store.servicesFilter"
                       :value="`${service.id}`"
                       class="form-check-input"
                       :id="`services-${service.id}`"

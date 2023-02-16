@@ -1,10 +1,5 @@
 @use "./partials/variable" as *;
 
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/@fortawesome/fontawesome-free/css/all.css';
-@import 'node_modules/@fontsource/poppins/index.css';
-@import "node_modules/@tomtom-international/web-sdk-maps/dist/maps.css";
-
 body {
     font-family: "Poppins", sans-serif;
 }
