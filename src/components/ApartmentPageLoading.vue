@@ -59,6 +59,7 @@ export default {
 
 <style lang="scss">
 @use "../styles/general.scss" as *;
+
 #apartment {
   .row {
     display: flex;
@@ -69,6 +70,9 @@ export default {
       height: 20px;
       border-radius: 10px;
       background-color: var(--lightGrey);
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      background-size: 200% 100%;
+      animation: 1.5s shine linear infinite;
     }
 
     .fake-paragraph {
@@ -76,6 +80,13 @@ export default {
       height: 14px;
       border-radius: 10px;
       background-color: var(--lightGrey);
+
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      display: inline-block;
+      background-size: 200% 100%;
+
+      animation: 1.5s shine linear infinite;
+
       display: inline-block;
     }
   }
@@ -94,15 +105,20 @@ export default {
   .fake-img-square {
     width: 400px;
     height: 400px;
+
+    background: linear-gradient(100deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+
     border-radius: 187px 0px 0px 0px;
+
     background-color: var(--lightGrey);
+    animation: 1.5s shine linear infinite;
 
     i {
       color: white;
       font-size: 5rem;
     }
   }
-
 }
 
 .fake-basic-services,
@@ -152,4 +168,10 @@ export default {
     border-radius: 5px;
   }
 }
+
+@keyframes shine {
+    to {
+      background-position-x: -200%;
+    }
+  }
 </style>
