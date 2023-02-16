@@ -22,13 +22,12 @@ export default {
   methods: {
     getApartments() {
       this.loading = true;
-
+      this.autocompleteResults = [];
       axios
         .get(`${this.store.apiUrl}/api/apartments`)
         .then((resp) => {
           this.apartments = resp.data.apartments;
           this.store.services = resp.data.services;
-
           this.loading = false;
         })
         .catch((err) => {
@@ -38,7 +37,8 @@ export default {
     goToSearchPage() {
       if (this.store.addressInput) {
         this.$router.push({
-          path: "/search",
+          name: "search",
+          params: { address: this.store.addressInput },
         });
       }
     },

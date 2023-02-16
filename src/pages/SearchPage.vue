@@ -23,11 +23,23 @@ export default {
   },
   methods: {
     getFilterApartments() {
+      this.autocompleteResults = [];
       this.filterModal = false;
-      if (this.store.addressInput) {
+      if (this.store.addressInput || this.$route.params.address) {
         this.loading = true;
         this.errors = false;
         this.notFound = false;
+
+        if (!this.store.addressInput) {
+          this.store.addressInput = this.$route.params.address;
+        }
+
+        if (this.store.addressInput !== this.$route.params.address) {
+          this.$router.replace({
+            name: "search",
+            params: { address: this.store.addressInput },
+          });
+        }
 
         let params = {
           address: this.store.addressInput,
@@ -94,6 +106,12 @@ export default {
           })
           .catch((err) => console.log(err));
       }
+    },
+    resetFilter() {
+      this.rangeKm = 20;
+      this.roomsInput = null;
+      this.bedsInput = null;
+      this.servicesFilter = [];
     },
   },
   created() {
@@ -227,6 +245,7 @@ export default {
                   class="form-control w-25"
                   type="number"
                   v-model="this.roomsInput"
+                  min="1"
                 />
               </div>
 
@@ -239,6 +258,7 @@ export default {
                   class="form-control w-25"
                   type="number"
                   v-model="this.bedsInput"
+                  min="1"
                 />
               </div>
 
@@ -272,18 +292,13 @@ export default {
 
             <!-- Modal-footer -->
             <div class="modal-footer d-flex justify-content-between">
-              <button
+              <a
                 type="button"
-                class="ms-btn-filter"
-                data-bs-dismiss="modal"
-                @click="
-                  () => {
-                    this.filterModal = false;
-                  }
-                "
+                class="ms-btn-filter bg-danger"
+                @click="resetFilter"
               >
-                Close
-              </button>
+                Reset
+              </a>
               <a
                 type="button"
                 class="ms-btn-filter"

@@ -14,7 +14,7 @@ const router = createRouter({
             component: HomePage
         },
         {
-            path: '/search',
+            path: '/search/location=:address',
             name: 'search',
             component: SearchPage
         },
