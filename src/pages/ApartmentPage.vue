@@ -2,9 +2,11 @@
 import { store } from "../store";
 import axios from "axios";
 import tt from "@tomtom-international/web-sdk-maps";
+import ApartmentPageLoading from "../components/ApartmentPageLoading.vue";
 
 export default {
   name: "Details",
+  components: { ApartmentPageLoading },
   data() {
     return {
       store,
@@ -38,12 +40,15 @@ export default {
       errorFullname: false,
       errorEmail: false,
       errorMessage: false,
+      loading: false
     };
   },
   methods: {
     getApartment() {
+      this.loading = true;
       const slug = this.$route.params.slug;
       axios.get(`${this.store.apiUrl}/api/apartments/${slug}`).then((resp) => {
+        this.loading = false;
         this.apartment = resp.data.apartment;
         this.createMap(
           this.apartment.address.latitude,
@@ -110,12 +115,17 @@ export default {
   },
   created() {
     this.getApartment();
+    window.scrollTo(0,0);
   },
 };
 </script>
 
 <template>
-  <section id="apartment" class="container">
+<div v-if="loading" class="container mt-2">
+  <ApartmentPageLoading />
+</div>
+<div v-else class="container">
+  <section id="apartment">
     <div class="row">
       <div class="col col-md-6">
         <div class="bar mt-3 mb-3"></div>
@@ -436,6 +446,7 @@ export default {
       </div>
     </div>
   </section>
+</div>
 </template>
 
 <style lang="scss" scoped>
