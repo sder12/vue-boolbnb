@@ -2,7 +2,6 @@
 import { store } from "../store";
 import axios from "axios";
 import tt from "@tomtom-international/web-sdk-maps";
-import { TouchPitchHandler } from "mapbox-gl";
 
 export default {
   name: "Details",

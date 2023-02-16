@@ -87,7 +87,7 @@ export default {
               this.store.addressInput
             )}.json?key=${
               this.store.keyTomTom
-            }&language=it-IT&lat=41.9028&lon=12.4964&limit=5`
+            }&language=it-IT&countrySet=IT&limit=5`
           )
           .then((resp) => {
             this.autocompleteResults = resp.data.results;
