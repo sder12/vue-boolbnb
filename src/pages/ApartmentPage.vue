@@ -2,9 +2,11 @@
 import { store } from "../store";
 import axios from "axios";
 import tt from "@tomtom-international/web-sdk-maps";
+import ApartmentPageLoading from "../components/ApartmentPageLoading.vue";
 
 export default {
   name: "Details",
+  components: { ApartmentPageLoading },
   data() {
     return {
       store,
@@ -38,12 +40,15 @@ export default {
       errorFullname: false,
       errorEmail: false,
       errorMessage: false,
+      loading: false
     };
   },
   methods: {
     getApartment() {
+      this.loading = true;
       const slug = this.$route.params.slug;
       axios.get(`${this.store.apiUrl}/api/apartments/${slug}`).then((resp) => {
+        this.loading = false;
         this.apartment = resp.data.apartment;
         this.createMap(
           this.apartment.address.latitude,
@@ -110,12 +115,17 @@ export default {
   },
   created() {
     this.getApartment();
+    window.scrollTo(0,0);
   },
 };
 </script>
 
 <template>
-  <section id="apartment" class="container">
+<div v-if="loading" class="container mt-2">
+  <ApartmentPageLoading />
+</div>
+<div v-else class="container">
+  <section id="apartment">
     <div class="row">
       <div class="col col-md-6">
         <div class="bar mt-3 mb-3"></div>
@@ -163,10 +173,10 @@ export default {
         class="icon-group-1 d-flex align-items-center mt-3"
         v-for="basicService in basicServices"
       >
-        <div class="icon me-3 text-center">
+        <div class="icon text-center">
           <i :class="basicService.icon" class="fs-5"></i>
         </div>
-        <div class="text">
+        <div class="text ms-2">
           <h5 class="fs-6">{{ basicService.title }}</h5>
           <p class="text-secondary">{{ basicService.subTitle }}</p>
         </div>
@@ -177,12 +187,15 @@ export default {
   <div class="advanced_services p-5">
     <div class="container">
       <h2>What this place offers</h2>
-      <div
-        class="icon-group-2 d-flex align-items-center mt-3"
-        v-for="service in this.apartment.services"
-      >
-        <i :class="service.icon_name" class="fa-solid me-3"></i>
-        <h5>{{ service.name }}</h5>
+      <div class="row">
+        <div class="col-xs-1 col-sm-6" v-for="service in this.apartment.services">
+          <div
+            class="icon-group-2 d-flex align-items-center mt-3"
+          >
+            <i :class="service.icon_name" class="fa-solid me-3"></i>
+            <h5>{{ service.name }}</h5>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -436,6 +449,7 @@ export default {
       </div>
     </div>
   </section>
+</div>
 </template>
 
 <style lang="scss" scoped>
@@ -508,6 +522,10 @@ export default {
   p {
     font-size: 0.8rem;
   }
+}
+
+.icon {
+  width: 50px;
 }
 
 // /SECTION SERVICES
