@@ -41,21 +41,26 @@ export default {
       errorEmail: false,
       errorMessage: false,
       loading: false,
+      ip_address: null
     };
   },
   methods: {
     getApartment() {
       this.loading = true;
       const slug = this.$route.params.slug;
-      axios.get(`${this.store.apiUrl}/api/apartments/${slug}`).then((resp) => {
-        this.loading = false;
-        this.apartment = resp.data.apartment;
-        this.createMap(
-          this.apartment.address.latitude,
-          this.apartment.address.longitude,
-          this.store.keyTomTom
-        );
-      });
+      axios.get("https://api.ipify.org/?format=json")
+      .then((resp) => {
+        this.ip_address = resp.data.ip;
+        axios.get(`${this.store.apiUrl}/api/apartments/${slug}`, { params: {ip_address:this.ip_address}}).then((resp) => {
+          this.loading = false;
+          this.apartment = resp.data.apartment;
+          this.createMap(
+            this.apartment.address.latitude,
+            this.apartment.address.longitude,
+            this.store.keyTomTom
+          );
+        });
+      })
     },
     createMap(lat, long, key) {
       var map = tt.map({
@@ -123,7 +128,7 @@ export default {
           this.errorMessage = true;
         }
       }
-    },
+    }
   },
   created() {
     this.getApartment();

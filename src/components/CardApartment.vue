@@ -21,16 +21,13 @@ export default {
       return this.apartment.description;
     },
   },
-  created() {
-    console.log(this.apartment)
-  },
   methods: {
     handleClick() {
       this.$router.push(
         '/' + this.apartment.slug
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
