@@ -22,33 +22,42 @@ export default {
     },
   },
   created() {
-    console.log(this.apartment)
+    console.log(this.apartment);
   },
   methods: {
     handleClick() {
-      this.$router.push(
-        '/' + this.apartment.slug
-      );
-    }
-  }
+      this.$router.push("/" + this.apartment.slug);
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="col my-3 d-flex justify-content-sm-center justify-content-md-start position-relative">
-    <div v-if="this.apartment.sponsorships[0]?.pivot.is_active" class="sponsorTag position-absolute left-0 d-flex justify-content-center align-items-center">
+  <div
+    class="col my-3 d-flex justify-content-center justify-content-md-start position-relative"
+  >
+    <div
+      v-if="this.apartment.sponsorships[0]?.pivot.is_active"
+      class="sponsorTag position-absolute left-0 d-flex justify-content-center align-items-center"
+    >
       <span><em>sponsored</em></span>
     </div>
-    <div class="ms-card shadow-sm" style="width: 18rem;" @click="handleClick">
-      <img :src="`${store.apiUrl}/storage/${apartment.cover_image}`" class="ms-card-img-top" alt="apartment.title">
+    <div class="ms-card shadow-sm" style="width: 18rem" @click="handleClick">
+      <img
+        :src="`${store.apiUrl}/storage/${apartment.cover_image}`"
+        class="ms-card-img-top"
+        alt="apartment.title"
+      />
       <div class="ms-card-body p-2">
         <!-- Title -->
         <h5 class="card-title mt-2">{{ apartment.title }}</h5>
         <!-- /Title -->
 
         <!-- Description -->
-        <p class="ms-card-text mt-1" v-if="apartment.description">{{ descriptionPreview }}</p>
-        <p class="ms-card-text mt-1" v-else> ---- </p>
+        <p class="ms-card-text mt-1" v-if="apartment.description">
+          {{ descriptionPreview }}
+        </p>
+        <p class="ms-card-text mt-1" v-else>----</p>
         <!-- / Description -->
       </div>
     </div>
