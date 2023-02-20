@@ -124,7 +124,7 @@ export default {
 
   <!-- Apartments -->
   <div class="container apartment-container">
-    <h1>Most Viewed</h1>
+    <h1>Sponsored</h1>
     <section id="apartments" class="row row-cols-xl-4 row-cols-lg-3">
       <CardApartmentLoading v-if="loading" v-for="n in 4" />
       <CardApartment
