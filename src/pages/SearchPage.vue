@@ -331,7 +331,7 @@ export default {
     <!-- ELSE notFound -->
     <section v-else id="apartments">
       <!-- Array empty -->
-      <div v-if="store.searchedApartments.length == 0" class="text-center mt-5">
+      <div id="array-empty" v-if="store.searchedApartments.length == 0" class="text-center mt-5">
         <h2>No exact matches :(</h2>
         <h4>
           Try changing or removing some of your <strong>filters</strong> or
@@ -446,5 +446,9 @@ export default {
       text-decoration: none;
     }
   }
+}
+
+#array-empty {
+  height: 500px;
 }
 </style>
