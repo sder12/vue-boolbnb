@@ -70,7 +70,7 @@ export default {
     <div class="container jumbotron-container">
       <div class="row">
         <!-- Left -->
-        <div class="col-sm-12 col-md-4 text-center">
+        <div id="jumbotron-text" class="col-sm-12 col-md-4 text-center">
           <h3 class="fw-bold">Not sure where to go?</h3>
           <p class="mt-3">
             Discover breathtaking destinations and book the perfect vacation
@@ -112,7 +112,7 @@ export default {
         </div>
 
         <!-- Right -->
-        <div class="col-sm-12 col-md-8 text-center">
+        <div id="jumbotron-img" class="col-sm-12 col-md-8 text-center">
           <div class="img-container">
             <img id="front-home" src="../assets/front-home-1.svg" alt="" />
           </div>
@@ -253,5 +253,18 @@ export default {
   p {
     color: var(--lorem);
   }
+}
+
+// MEDIA QUERIES
+@media screen and (max-width: 768px) {
+  #jumbotron-text {
+    position: relative;
+  }
+
+  #jumbotron-img {
+    position: absolute;
+    top: 60%;
+  }
+
 }
 </style>
