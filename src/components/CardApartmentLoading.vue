@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <div class="col my-3 d-flex justify-content-sm-center justify-content-md-start">
+  <div class="col my-3 d-flex justify-content-center justify-content-md-start">
     <div class="ms-card shadow-sm">
       <!--Fake img-->
       <div class="ms-card-img-top"></div>
