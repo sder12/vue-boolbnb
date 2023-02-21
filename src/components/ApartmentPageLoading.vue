@@ -6,8 +6,8 @@ export default {
 
 <template>
   <section id="apartment" class="container">
-    <div class="row">
-      <div class="col col-md-6">
+    <div class="row d-flex justify-content-between">
+      <div class="col-lg-6 order-md-1">
         <div class="bar mt-3 mb-3"></div>
         <h1 class="title">Loading . . .</h1>
         <div class="fake-details">
@@ -22,10 +22,8 @@ export default {
           <p class="fake-paragraph mb-2"></p>
         </div>
       </div>
-      <div class="col col-md-5">
-        <div
-          class="fake-img-square d-flex align-items-center justify-content-center mt-3"
-        >
+      <div class="col-lg-5 d-flex justify-content-center order-md-2">
+        <div class="fake-img-square d-flex align-items-center justify-content-center mt-3 mb-3">
           <i class="fa-solid fa-mountain-sun"></i>
         </div>
       </div>
@@ -33,9 +31,9 @@ export default {
   </section>
   <section class="fake-basic-services p-5">
     <div class="container">
-      <div v-for="index in 5" :key="index" class="fake-icon-group d-flex align-items-center mb-3">
+      <div v-for="index in 5" :key="index" class="fake-icon-group d-flex align-items-center mt-3">
         <div class="fake-icon me-3"></div>
-        <div class="fake-text">
+        <div class="fake-text align-middle">
           <div class="fake-title mb-1"></div>
           <div class="fake-subtitle"></div>
         </div>
@@ -76,7 +74,7 @@ export default {
     }
 
     .fake-paragraph {
-      width: 400px;
+      width: 300px;
       height: 14px;
       border-radius: 10px;
       background-color: var(--lightGrey);
@@ -92,7 +90,7 @@ export default {
   }
 
   .bar {
-    width: 573px;
+    max-width: 573px;
     height: 18px;
     background-color: var(--darkerGrey);
   }
@@ -125,7 +123,6 @@ export default {
 .fake-advanced-services {
   border-top: 1px solid var(--lightGrey);
   border-bottom: 1px solid var(--lightGrey);
-
 }
 
 .fake-icon {
@@ -136,6 +133,7 @@ export default {
 }
 
 .fake-text {
+
   .fake-title,
   .fake-subtitle {
     background-color: var(--lightGrey);
@@ -146,7 +144,7 @@ export default {
     width: 150px;
     height: 15px;
   }
-  
+
   .fake-subtitle {
     width: 100px;
     height: 10px;
@@ -156,11 +154,11 @@ export default {
 .fake-advanced-services {
   .fake-advanced-title {
     width: 300px;
-        height: 20px;
-        border-radius: 10px;
-        background-color: var(--lightGrey);
+    height: 20px;
+    border-radius: 10px;
+    background-color: var(--lightGrey);
   }
-  
+
   .fake-advanced-service-title {
     width: 80px;
     height: 20px;
@@ -170,8 +168,18 @@ export default {
 }
 
 @keyframes shine {
-    to {
-      background-position-x: -200%;
-    }
+  to {
+    background-position-x: -200%;
   }
+}
+
+@media (max-width: 425px) {
+  .order-md-1 {
+    order: 2;
+  }
+
+  .order-md-2 {
+    order: 1;
+  }
+}
 </style>

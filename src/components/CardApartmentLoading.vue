@@ -5,9 +5,7 @@ export default {
 </script>
 
 <template>
-  <div
-    class="col my-3 d-flex justify-content-sm-center justify-content-md-start"
-  >
+  <div class="col my-3 d-flex justify-content-sm-center justify-content-md-start">
     <div class="ms-card shadow-sm">
       <!--Fake img-->
       <div class="ms-card-img-top"></div>
@@ -57,6 +55,7 @@ export default {
   .ms-card-text:first-child {
     width: 80%;
   }
+
   @keyframes shine {
     to {
       background-position-x: -200%;

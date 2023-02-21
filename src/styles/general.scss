@@ -1,6 +1,7 @@
 @use "./partials/variable" as *;
 
 body {
+    width: 100%;
     font-family: "Poppins", sans-serif;
 }
 
@@ -45,7 +46,7 @@ p {
     font-size: 1rem;
 }
 
-.is-invalid-custom{
+.is-invalid-custom {
     border: 1px solid var(--primaryMain) !important;
 }
 

@@ -21,7 +21,7 @@ export default {
           icon: "fa-solid fa-spray-can-sparkles",
           title: "Enhanced Clean",
           subTitle:
-            "This Host committed to Airnb's 5-step enhanced cleaning process.",
+            "Enhanced cleaning process.",
         },
         {
           icon: "fa-solid fa-door-closed",
@@ -30,7 +30,7 @@ export default {
         },
         {
           icon: "fa-regular fa-calendar-minus",
-          title: "Free cancellation before Feb 14",
+          title: "Free cancellation before Feb 30",
           subTitle: "",
         },
       ],
@@ -70,7 +70,9 @@ export default {
         zoom: 15,
       });
 
-      const marker = new tt.Marker().setLngLat([long, lat]).addTo(map);
+      var marker = new tt.Marker({
+        color: '#D61C4E',
+      }).setLngLat([long, lat]).addTo(map);
 
       // Crea un'istanza del popup
       const popup = new tt.Popup({
@@ -142,9 +144,8 @@ export default {
 
   <div v-else>
     <section id="apartment" class="container">
-      <div class="row">
-        <div class="col col-md-6">
-          <div class="bar mt-3 mb-3"></div>
+      <div class="row d-flex reverse justify-content-between">
+        <div class="col-lg-6 order-md-1 mt-3">
           <h2 class="title">{{ apartment.title }}</h2>
           <div class="details">
             <p>
@@ -173,7 +174,7 @@ export default {
             <p>{{ apartment.description }}</p>
           </div>
         </div>
-        <div class="col col-md-5">
+        <div class="col-lg-5 d-flex order-md-2 justify-content-center">
           <img :src="`${store.apiUrl}/storage/${apartment.cover_image}`" class="image-apt mt-3 mb-3"
             alt="apartment.title" />
         </div>
@@ -198,10 +199,10 @@ export default {
       <div class="container">
         <h2>What this place offers</h2>
         <div class="row">
-          <div class="col-xs-1 col-sm-6" v-for="service in this.apartment.services">
+          <div class="col-sm-6 col-6" v-for="service in this.apartment.services">
             <div class="icon-group-2 d-flex align-items-center mt-3">
               <i :class="service.icon_name" class="fa-solid me-3 text-center" style="width: 20px;"></i>
-              <h5 class="m-0">{{ service.name }}</h5>
+              <h5 class="fs-6 m-0">{{ service.name }}</h5>
             </div>
           </div>
         </div>
@@ -210,13 +211,13 @@ export default {
   </div>
 
   <section id="position-apt" class="container-fluid mt-5">
-    <h2 class="title mb-2">Where you'll be</h2>
+    <h2 class="title mb-3">Where you'll be</h2>
     <div id="map"></div>
   </section>
 
   <section id="contact-us" class="container mt-5">
     <div class="row">
-      <div class="col col-md-6 image-svg">
+      <div class="col-md-6 image-svg">
         <svg width="500" height="400" viewBox="0 0 586 401" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_26_6414)">
             <path
@@ -333,7 +334,7 @@ export default {
           </defs>
         </svg>
       </div>
-      <div class="col col-md-5">
+      <div class="col-md-5">
         <div class="contact__text">
           <p>Contact Us</p>
           <h3 class="contact__title mb-4">Get in touch today</h3>
@@ -387,13 +388,8 @@ export default {
     justify-content: space-between;
   }
 
-  .bar {
-    width: 573px;
-    height: 18px;
-    background-color: #293462;
-  }
-
   .title {
+    border-top: 18px solid var(--darkBlue);
     font-size: 25px;
     font-weight: 600;
   }
@@ -427,7 +423,7 @@ export default {
   }
 
   .image-apt {
-    width: 400px;
+    max-width: 400px;
     height: 400px;
     border-radius: 187px 0px 0px 0px;
     object-fit: cover;
@@ -459,7 +455,7 @@ export default {
 // /SECTION SERVICES
 
 #position-apt {
-  height: 550px;
+  height: 500px;
   background-color: #f2f4f7;
   display: flex;
   flex-direction: column;
@@ -471,8 +467,8 @@ export default {
   }
 
   #map {
-    width: 800px;
-    height: 450px;
+    width: 100%;
+    height: 400px;
   }
 }
 
@@ -485,6 +481,7 @@ export default {
   .image-svg {
     display: flex;
     align-items: flex-end;
+    justify-content: center;
   }
 
   .contact__form {
@@ -546,6 +543,16 @@ export default {
     background: #d61c4e;
     color: white;
     border-radius: 37px;
+  }
+}
+
+@media (max-width: 425px) {
+  .order-md-1 {
+    order: 2;
+  }
+
+  .order-md-2 {
+    order: 1;
   }
 }
 </style>

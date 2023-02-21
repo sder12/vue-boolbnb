@@ -8,42 +8,26 @@ export default {
 
 <template>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary py-3 px-5">
-            <div class="container-fluid">
-
-                <!-- Logo -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid d-flex justify-content-between">
                 <router-link :to="{ name: 'home' }" class="navbar-brand">
-                    <img src="../assets/logo-lg.svg" alt="logo-boolbnb">
+                    <img class="d-md-block d-none" src="../assets/logo-lg.svg" alt="logo-boolbnb">
+                    <img class="d-sm-block d-md-none" src="../assets/logo-sm.svg" alt="">
                 </router-link>
-
-                <!-- Hamburger menu -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
                 <!-- Navigation -->
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <div class="navbar" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <!-- <li class="nav-item">
-                            <router-link :to="{ name: 'search' }" class="nav-link">
-                                Search
-                            </router-link>
-                        </li> -->
-                        <li class="nav-item ">
-                            <a class="nav-link" href="http://127.0.0.1:8000/admin">Become a host</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://127.0.0.1:8000/register">Become a host</a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item">
                             <a class="nav-link" href="http://127.0.0.1:8000/login">Login</a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-
 </template>
 
 
