@@ -37,7 +37,10 @@ export default {
     class="col my-3 d-flex justify-content-center justify-content-md-start position-relative"
   >
     <div
-      v-if="this.apartment.sponsorships[0]?.pivot.is_active"
+      v-if="
+        this.apartment.sponsorships[this.apartment.sponsorships.length - 1]
+          ?.pivot.is_active
+      "
       class="sponsorTag position-absolute left-0 d-flex justify-content-center align-items-center"
     >
       <span><em>sponsored</em></span>
