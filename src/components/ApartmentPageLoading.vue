@@ -14,8 +14,7 @@ export default {
           <div class="fake-text mb-2"></div>
           <div class="fake-text"></div>
         </div>
-        <div class="fake-description mt-5 text-center">
-          <p class="fake-paragraph mb-2"></p>
+        <div class="fake-description mt-5">
           <p class="fake-paragraph mb-2"></p>
           <p class="fake-paragraph mb-2"></p>
           <p class="fake-paragraph mb-2"></p>
@@ -74,7 +73,7 @@ export default {
     }
 
     .fake-paragraph {
-      width: 300px;
+      width: 400px;
       height: 14px;
       border-radius: 10px;
       background-color: var(--lightGrey);
