@@ -1,54 +1,61 @@
 <script>
 export default {
-    name: "AppFooter",
-data() {
+  name: "AppFooter",
+  data() {
     return {
-        socials: ["fa-brands fa-facebook-f", "fa-brands fa-twitter", "fa-brands fa-youtube", "fa-brands fa-instagram", "fa-brands fa-linkedin"],
-        credits: ["Copyright 2023 Boolbnb, Inc |  ", " All Rights Reserved"]
-        }
-    }
-}
+      socials: [
+        "fa-brands fa-facebook-f",
+        "fa-brands fa-twitter",
+        "fa-brands fa-youtube",
+        "fa-brands fa-instagram",
+        "fa-brands fa-linkedin",
+      ],
+      credits: ["Copyright 2023 Boolbnb, Inc |  ", " All Rights Reserved"],
+    };
+  },
+};
 </script>
 
 <template>
-    <footer>
-        <div class="copyrights d-flex align-items-center">
-            <h5 class="fw-bolder m-0" v-for="credit in credits">{{ credit }}</h5>
-        </div>
-        <ul class="socials-icons d-flex justify-content-between m-0">
-            <li v-for="social in socials">
-                <i :class="social"></i>
-            </li>
-        </ul>
-    </footer>
+  <footer>
+    <div class="copyrights d-flex align-items-center">
+      <h5 class="fw-bolder m-0" v-for="credit in credits">{{ credit }}</h5>
+    </div>
+    <ul class="socials-icons d-flex justify-content-between m-0">
+      <li v-for="social in socials">
+        <i :class="social"></i>
+      </li>
+    </ul>
+  </footer>
 </template>
 
 <style lang="scss" scoped>
 @use "../styles/general.scss" as *;
 footer {
+  height: 100px;
   padding: 2rem;
   display: flex;
   justify-content: space-between;
 
-//   Copyrights
+  //   Copyrights
   .copyrights {
     color: var(--basicBlack);
 
     h5 {
-        font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
-//   Copyrights
+  //   Copyrights
 
-// Socials
+  // Socials
   .socials-icons {
     width: 300px;
     color: var(--socials);
-    
+
     i {
-        padding: .5rem;
-        font-size: 1.2rem;
-        background-color: var(--lightGrey);
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      background-color: var(--lightGrey);
     }
   }
 }
