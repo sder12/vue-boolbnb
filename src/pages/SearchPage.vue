@@ -316,6 +316,7 @@ export default {
   <!-- Apartments -->
 
   <!-- IF Loading -->
+
   <div v-if="loading" class="container mt-2">
     <div class="row row-cols-xl-4 row-cols-lg-3">
       <CardApartmentLoading v-for="n in 8" />
@@ -324,14 +325,18 @@ export default {
   <!-- ELSE  Loading -->
   <div v-else class="container">
     <!-- IF notFound -->
-    <div v-if="notFound" class="text-center my-5">
+    <div v-if="notFound" class="text-center my-5" id="notFoundArray">
       <h2>No exact matches :(</h2>
-      <h4>Try adjusting your <strong> search area.</strong></h4>
+      <h4>Try to adjust your <strong>search area.</strong></h4>
     </div>
     <!-- ELSE notFound -->
-    <section v-else id="apartments">
+    <div v-else id="apartments" class="">
       <!-- Array empty -->
-      <div id="array-empty" v-if="store.searchedApartments.length == 0" class="text-center mt-5">
+      <div
+        id="array-empty"
+        v-if="store.searchedApartments.length == 0"
+        class="text-center mt-5"
+      >
         <h2>No exact matches :(</h2>
         <h4>
           Try changing or removing some of your <strong>filters</strong> or
@@ -339,14 +344,23 @@ export default {
         </h4>
       </div>
       <!-- FOUND -->
-      <div v-else class="row row-cols-xl-4 row-cols-lg-3">
+      <div
+        v-else
+        class="row row-cols-xl-4 row-cols-lg-3"
+        :class="
+          store.searchedApartments.length <= 4 &&
+          store.searchedApartments.length > 0
+            ? 'margin-trick'
+            : ''
+        "
+      >
         <CardApartment
           v-for="apartment in store.searchedApartments"
           :key="apartment.id"
           :apartment="apartment"
         />
       </div>
-    </section>
+    </div>
   </div>
   <!--/  Apartments -->
 </template>
@@ -450,5 +464,19 @@ export default {
 
 #array-empty {
   height: 500px;
+}
+
+#notFoundArray {
+  height: 500px;
+}
+
+.margin-trick {
+  margin-bottom: 150px;
+}
+
+@media only screen and (max-width: 767px) {
+  .margin-trick {
+    margin-bottom: 0px;
+  }
 }
 </style>
