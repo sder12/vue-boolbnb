@@ -17,8 +17,8 @@ export default {
 </script>
 
 <template>
-  <footer>
-    <div class="row justify-content-between align-items-center">
+  <footer class="container d-flex align-items-center">
+    <div class="row justify-content-between align-items-center w-100">
       <div class="col-12 col-md-6 order-md-2">
         <ul class="socials-icons m-0">
           <li v-for="social in socials">
@@ -30,7 +30,9 @@ export default {
       </div>
       <div class="col-12 col-md-6 order-md-1">
         <div class="text-center text-md-start">
-          <p class="fw-bolder m-0" v-for="credit in credits">{{ credit }}</p>
+          <p class="fw-bolder m-0 p-0" v-for="credit in credits">
+            {{ credit }}
+          </p>
         </div>
       </div>
     </div>
@@ -42,7 +44,6 @@ export default {
 
 footer {
   height: 80px;
-  padding: 1rem;
 
   // Socials
   .square {

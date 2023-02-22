@@ -366,7 +366,7 @@ export default {
 
 <style lang="scss" scoped>
 #wrapper-search-page {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 160px);
   overflow: auto;
 }
 .wrapper {
