@@ -9,7 +9,8 @@ export default {
 <template>
     <header>
         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid d-flex justify-content-between">
+            <div class="container-fluid d-flex justify-content-between ms-3">
+                <!-- Logo -->
                 <router-link :to="{ name: 'home' }" class="navbar-brand">
                     <img class="d-md-block d-none" src="../assets/logo-lg.svg" alt="logo-boolbnb">
                     <img class="d-sm-block d-md-none" src="../assets/logo-sm.svg" alt="">
@@ -18,10 +19,7 @@ export default {
                 <div class="navbar" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="http://127.0.0.1:8000/register">Become a host</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://127.0.0.1:8000/login">Login</a>
+                            <a class="nav-link me-3" href="http://127.0.0.1:8000/login">Login</a>
                         </li>
                     </ul>
                 </div>
